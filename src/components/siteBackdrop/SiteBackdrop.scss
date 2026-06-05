@@ -1,0 +1,196 @@
+.site-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 78% 58% at 68% 8%, rgba(24, 224, 255, 0.11), transparent 62%),
+    radial-gradient(ellipse 72% 64% at 18% 42%, rgba(59, 130, 246, 0.08), transparent 66%),
+    linear-gradient(180deg, #03070e 0%, #050810 44%, #070b16 100%);
+
+  span {
+    position: absolute;
+    display: block;
+    pointer-events: none;
+  }
+
+  &__base {
+    inset: -20%;
+    background:
+      radial-gradient(circle at 80% 22%, rgba(34, 211, 238, 0.1), transparent 26%),
+      radial-gradient(circle at 12% 68%, rgba(99, 102, 241, 0.09), transparent 30%),
+      radial-gradient(circle at 54% 88%, rgba(59, 130, 246, 0.07), transparent 28%);
+    filter: blur(18px);
+    opacity: 0.9;
+  }
+
+  &__grid {
+    inset: 0;
+    opacity: 0.055;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.95) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.95) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image:
+      radial-gradient(ellipse 90% 86% at 50% 20%, black 12%, transparent 78%);
+    animation: siteGridDrift 28s linear infinite;
+  }
+
+  &__mesh {
+    width: 46vw;
+    min-width: 420px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    filter: blur(96px);
+    mix-blend-mode: screen;
+    opacity: 0.36;
+    will-change: transform, opacity;
+
+    &--cyan {
+      top: -16%;
+      right: -12%;
+      background: radial-gradient(circle, rgba(24, 224, 255, 0.32), transparent 66%);
+      animation: siteMeshCyan 24s var(--ease-out-expo) infinite;
+    }
+
+    &--blue {
+      top: 35%;
+      left: -18%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.24), transparent 68%);
+      animation: siteMeshBlue 31s var(--ease-out-expo) -9s infinite;
+    }
+
+    &--violet {
+      right: 8%;
+      bottom: -24%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.22), transparent 70%);
+      animation: siteMeshViolet 27s var(--ease-out-expo) -5s infinite;
+    }
+  }
+
+  &__beam {
+    width: 32vw;
+    min-width: 320px;
+    height: 160vh;
+    left: 58%;
+    top: -40vh;
+    opacity: 0.13;
+    transform: rotate(18deg) translate3d(-36vw, 0, 0);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(24, 224, 255, 0.08) 42%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(99, 102, 241, 0.07) 58%,
+      transparent 100%
+    );
+    filter: blur(18px);
+    animation: siteBeamSweep 34s ease-in-out infinite;
+  }
+
+  &__dust {
+    inset: 0;
+    opacity: 0.16;
+    background-image:
+      radial-gradient(circle, rgba(255, 255, 255, 0.42) 0 0.5px, transparent 1px),
+      radial-gradient(circle, rgba(34, 211, 238, 0.34) 0 0.5px, transparent 1px);
+    background-size: 160px 160px, 260px 260px;
+    background-position: 0 0, 52px 88px;
+    mask-image: linear-gradient(180deg, transparent 0%, black 12%, black 88%, transparent 100%);
+    animation: siteDustFloat 42s linear infinite;
+  }
+
+  &__vignette {
+    inset: 0;
+    background:
+      radial-gradient(ellipse 88% 72% at 50% 18%, transparent 28%, rgba(3, 7, 14, 0.34) 86%),
+      linear-gradient(90deg, rgba(3, 7, 14, 0.72), transparent 22%, transparent 78%, rgba(3, 7, 14, 0.68));
+  }
+
+  @media (max-width: 768px) {
+    &__grid {
+      background-size: 44px 44px;
+      opacity: 0.045;
+    }
+
+    &__mesh {
+      min-width: 300px;
+      filter: blur(80px);
+      opacity: 0.3;
+    }
+
+    &__beam {
+      opacity: 0.08;
+    }
+  }
+}
+
+@keyframes siteGridDrift {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 56px 56px, 56px 56px;
+  }
+}
+
+@keyframes siteMeshCyan {
+  0%, 100% {
+    opacity: 0.28;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: translate3d(-7vw, 12vh, 0) scale(1.08);
+  }
+}
+
+@keyframes siteMeshBlue {
+  0%, 100% {
+    opacity: 0.24;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.38;
+    transform: translate3d(11vw, -6vh, 0) scale(1.1);
+  }
+}
+
+@keyframes siteMeshViolet {
+  0%, 100% {
+    opacity: 0.22;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.36;
+    transform: translate3d(-8vw, -10vh, 0) scale(1.08);
+  }
+}
+
+@keyframes siteBeamSweep {
+  0%, 62%, 100% {
+    transform: rotate(18deg) translate3d(-42vw, 0, 0);
+  }
+  82% {
+    transform: rotate(18deg) translate3d(38vw, 0, 0);
+  }
+}
+
+@keyframes siteDustFloat {
+  from {
+    background-position: 0 0, 52px 88px;
+  }
+  to {
+    background-position: 160px 160px, 312px 348px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-backdrop__grid,
+  .site-backdrop__mesh,
+  .site-backdrop__beam,
+  .site-backdrop__dust {
+    animation: none;
+  }
+}

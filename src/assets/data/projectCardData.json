@@ -1,101 +1,81 @@
 [
   {
     "id": 1,
-    "title": "Licurici Theater Ticketing Demo",
-    "description": "This is a demo version of the real full-stack application for the Licurici State Puppet Theater, built with React, TypeScript, and Node.js, showcasing functionality such as ticket sales, schedule viewing, and more.",
-    "category": "React",
-    "imageURL": "licurici.jpg",
-    "link": "https://arteugeniu.github.io/LicuriciAppDemo/",
-    "github": "https://github.com/ArtEugeniu/LicuriciAppDemo"
+    "title": "Контент для клининговой компании",
+    "description": "Съёмка и монтаж контента для социальных сетей клининговой компании.",
+    "type": "Контент-кейс",
+    "tags": ["Контент", "Видео-продакшн"],
+    "media": {
+      "type": "video",
+      "video": "/clean-web.mp4",
+      "poster": "/clean-poster.jpg"
+    },
+    "link": null,
+    "comingSoon": false
   },
   {
     "id": 2,
-    "title": "Taxi Project",
-    "description": "A real Next.js taxi website with SEO optimization and multilingual support (Romanian and Russian). The site ranks on Google from the first to third page depending on the query, and shows first for searches of this specific driver.",
-    "category": "React",
-    "imageURL": "taxi-project.jpg",
-    "link": "https://taxi-edinet.vercel.app/",
-    "github": "https://github.com/ArtEugeniu/taxiProject"
+    "title": "Билетная система для театра",
+    "description": "Помогли театру перевести расписание и продажу билетов в удобный онлайн-формат для зрителей.",
+    "type": "Сайт-кейс",
+    "tags": ["Веб-разработка", "SEO"],
+    "media": {
+      "type": "image",
+      "image": "licurici.jpg"
+    },
+    "link": "https://arteugeniu.github.io/LicuriciAppDemo/",
+    "comingSoon": false
   },
   {
     "id": 3,
-    "title": "E-commerce (TypeScript)",
-    "description": "An online clothing store, still under development. A multi-page website built using various libraries and Redux Toolkit for state management.",
-    "category": "React",
-    "imageURL": "ecommerce.jpg",
-    "link": "https://arteugeniu.github.io/E-commerce-project/",
-    "github": "https://github.com/ArtEugeniu/E-commerce-project"
+    "title": "Сайт для службы такси",
+    "description": "Создали сайт, который помогает клиентам быстро найти услугу и связаться со службой такси.",
+    "type": "Сайт-кейс",
+    "tags": ["Реклама + Сайт", "SEO"],
+    "media": {
+      "type": "image",
+      "image": "taxi-project.jpg"
+    },
+    "link": "https://taxi-edinet.vercel.app/",
+    "comingSoon": false
   },
   {
     "id": 4,
-    "title": "To Do App (TypeScript)",
-    "description": "A task manager app built with React and TypeScript, featuring task management, drag-and-drop, and filtering.",
-    "category": "React",
-    "imageURL": "toDoListReact.jpg",
-    "link": "https://arteugeniu.github.io/ToDoList-React/",
-    "github": "https://github.com/ArtEugeniu/ToDoList-React"
+    "title": "Интернет-магазин одежды",
+    "description": "Собрали витрину товаров с удобным каталогом, чтобы покупателям было проще выбирать и оформлять заказ.",
+    "type": "Сайт-кейс",
+    "tags": ["Веб-разработка", "Брендинг"],
+    "media": {
+      "type": "image",
+      "image": "ecommerce.jpg"
+    },
+    "link": "https://arteugeniu.github.io/E-commerce-project/",
+    "comingSoon": false
   },
   {
     "id": 5,
-    "title": "My Portfolio-Site",
-    "description": "My portfolio website built with React, utilizing useState, useEffect, components, and react-scroll for smooth navigation.",
-    "category": "React",
-    "imageURL": "myPortfolioSite.jpg",
-    "link": "https://arteugeniu.github.io/MySitePortfolio/",
-    "github": "https://github.com/ArtEugeniu/MySitePortfolio"
+    "title": "Продвижение локального бизнеса",
+    "description": "Подготовили посадочную страницу для заявок и понятной презентации услуги на первом экране.",
+    "type": "Сайт-кейс",
+    "tags": ["Контент + Сайт", "Реклама"],
+    "media": {
+      "type": "image",
+      "image": "myPortfolioSite.jpg"
+    },
+    "link": null,
+    "comingSoon": true
   },
   {
     "id": 6,
-    "title": "SimpleFood",
-    "description": "A multi-page online store built with HTML, CSS, and SCSS, utilizing jQuery and plugins for enhanced functionality.",
-    "category": "HTML/CSS",
-    "imageURL": "simpleFood.jpg",
-    "link": "https://arteugeniu.github.io/SimpleFood/",
-    "github": "https://github.com/ArtEugeniu/SimpleFood"
-  },
-  {
-    "id": 7,
-    "title": "TicTacToe Game",
-    "description": "A Tic-Tac-Toe game built with JavaScript, featuring interactive gameplay and basic game logic.",
-    "category": "JavaScript",
-    "imageURL": "ticTacToe.jpg",
-    "link": "https://arteugeniu.github.io/XO_Game/",
-    "github": "https://github.com/ArtEugeniu/XO_Game"
-  },
-  {
-    "id": 8,
-    "title": "To Do List (Vanilla JS)",
-    "description": "A classic To-Do List built with JavaScript. Features task addition, editing, deletion, and Local Storage support",
-    "category": "JavaScript",
-    "imageURL": "toDoListJs.jpg",
-    "link": "https://arteugeniu.github.io/ToDoList-Vanilla-Js/",
-    "github": "https://github.com/ArtEugeniu/ToDoList-Vanilla-Js"
-  },
-  {
-    "id": 9,
-    "title": "PortfolioProject",
-    "description": "My first project built with HTML and CSS, featuring basic layout, responsiveness, and cross-browser compatibility.",
-    "category": "HTML/CSS",
-    "imageURL": "portfolioProject.jpg",
-    "link": "https://arteugeniu.github.io/portfolioProject/",
-    "github": "https://github.com/ArtEugeniu/portfolioProject"
-  },
-  {
-    "id": 10,
-    "title": "CalculatorApp",
-    "description": "An Apple-style calculator built with JavaScript, featuring a sleek design and basic arithmetic functionality.",
-    "category": "JavaScript",
-    "imageURL": "calculator.jpg",
-    "link": "https://arteugeniu.github.io/Calculator-/",
-    "github": "https://github.com/ArtEugeniu/Calculator-"
-  },
-  {
-    "id": 11,
-    "title": "Memory Game",
-    "description": "A memory mini-game built with JavaScript, featuring button event handling and interactive gameplay.",
-    "category": "JavaScript",
-    "imageURL": "memoryGame.jpg",
-    "link": "https://arteugeniu.github.io/MemoryGame/",
-    "github": "https://github.com/ArtEugeniu/MemoryGame"
+    "title": "Онлайн-меню для кафе",
+    "description": "Сделали цифровое меню, чтобы гости могли быстро посмотреть актуальные блюда через QR-код.",
+    "type": "Сайт-кейс",
+    "tags": ["Контент + Сайт"],
+    "media": {
+      "type": "image",
+      "image": "simpleFood.jpg"
+    },
+    "link": null,
+    "comingSoon": true
   }
 ]

@@ -1,3 +1,5 @@
+@import './styles/variables';
+
 *,
 *::before,
 *::after {
@@ -7,11 +9,28 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--font-display);
   line-height: 1.5;
-  background-color: #001a1c;
-  color: #f0f1f0;
-  text-shadow: 0 0 5px #00ffff80;
+  background-color: var(--color-bg-deep);
+  color: var(--color-text-primary);
+}
+
+.App {
+  --header-height: 76px;
+
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  padding-top: var(--header-height);
+
+  @media (max-width: 768px) {
+    --header-height: 68px;
+  }
+}
+
+.App > :not(.site-backdrop):not(.header) {
+  position: relative;
+  z-index: 1;
 }
 
 .container {
@@ -53,11 +72,7 @@ ul {
 }
 
 section {
-  margin-bottom: 50px;
-
-  @media (max-width: 768px) {
-    margin-bottom: 25px;
-  }
+  margin-bottom: 0;
 }
 
 .section-title {
@@ -72,5 +87,6 @@ section {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  text-shadow: 0 0 5px #00ffff80;
+  font-family: var(--font-display);
+  text-shadow: none;
 }

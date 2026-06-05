@@ -1,39 +1,33 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './App.scss';
 import Header from "./components/header/Header";
 import Hero from './components/hero/Hero';
-import TechSection from './components/sections/techSection/TechSection';
-import AboutSection from './components/sections/aboutSection/AboutSection';
+import ServicesSection from './components/sections/servicesSection/ServicesSection';
 import PortfolioSection from './components/sections/portfolioSection/PortfolioSectioin';
-import AchivementSection from './components/sections/achivementSection/AchivementSection';
+import ProcessSection from './components/sections/processSection/ProcessSection';
+import AboutSection from './components/sections/aboutSection/AboutSection';
 import ContactSection from './components/sections/contactSection/ContactSection';
-import ScrollToTop from './components/scrollToTop/ScrollToTop';
 import Footer from './components/footer/Footer';
-
-
-
+import SiteBackdrop from './components/siteBackdrop/SiteBackdrop';
 
 function App() {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
 
   function toggleBurger() {
     setIsBurgerOpen(prevState => !prevState);
-  };
+  }
 
   return (
     <div className="App">
-
-        <Header isBurgerOpen={isBurgerOpen} toggleBurger={toggleBurger}/>
-        <Hero />
-        <AboutSection />
-        <TechSection />
-        <PortfolioSection />
-        <AchivementSection />
-        <ContactSection />
-        <ScrollToTop />
-        <Footer />
-      
-
+      <SiteBackdrop />
+      <Header isBurgerOpen={isBurgerOpen} toggleBurger={toggleBurger} />
+      <Hero />
+      <ServicesSection />
+      <PortfolioSection />
+      <ProcessSection />
+      <AboutSection />
+      <ContactSection />
+      <Footer />
     </div>
   );
 }

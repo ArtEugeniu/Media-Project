@@ -39,7 +39,7 @@ function Header({ isBurgerOpen, toggleBurger }) {
   }, []);
 
   return (
-    <header className={`header ${isScrolled ? 'header__scroled' : ''} ${isBurgerOpen ? 'header--opacity' : ''}`}>
+    <header className={`header ${isScrolled ? 'header--scrolled' : ''} ${isBurgerOpen ? 'header--opacity' : ''}`}>
       <div className="container">
         <Nav headerHeight={headerHeight} isBurgerOpen={isBurgerOpen} toggleBurger={toggleBurger} burgerButton={burgerButton} />
         <BurgerMenuButton toggleBurger={toggleBurger} isBurgerOpen={isBurgerOpen} burgerButton={burgerButton} />

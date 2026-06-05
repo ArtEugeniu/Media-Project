@@ -1,24 +1,147 @@
+import { motion } from 'framer-motion';
 import './AboutSection.scss';
 import myPhoto from '../../../assets/images/my-photo.jpg';
-import aboutMeData from '../../../assets/data/aboutMeData.json'
+
+const PERKS = [
+  {
+    icon: (
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <rect x="3" y="5" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.6" />
+        <path d="M8 5l4 5-4 5V5z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      </svg>
+    ),
+    label: 'Контент и видеопродакшн',
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.6" />
+        <circle cx="10" cy="10" r="3" stroke="currentColor" strokeWidth="1.6" />
+        <path d="M10 3v2M10 15v2M3 10h2M15 10h2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      </svg>
+    ),
+    label: 'Таргетированная реклама',
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M4 4h5v5H4zM11 4h5v5h-5zM4 11h5v5H4zM11 11h5v5h-5z"
+          stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+    label: 'Веб-разработка и лендинги',
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M4 5h12v8H4z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+        <path d="M7 13l2-2 2 2 3-3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+    label: 'Единая коммуникация по проекту',
+  },
+];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
+};
+
+const leftVariants = {
+  hidden: { opacity: 0, x: -28 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const rightVariants = {
+  hidden: { opacity: 0, x: 28 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const perkVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+};
 
 function AboutSection() {
   return (
-    <section className='about' id="about">
+    <section className="about" id="about">
       <div className="container">
-
-        <h2 className="about__title section-title">About Me</h2>
-        <div className="about__content">
-          <img className='about__img' src={myPhoto} alt="Artemiev Eugeniu photo" />
-          <div className="about__text">
-            {Object.entries(aboutMeData[0]).map(([key, value]) => {
-              return <p className='about__paragraph' key={key}>{value}</p>
-            })}
-          </div>
+        <div className="about__badge-wrap">
+          <span className="about__badge">О нас</span>
         </div>
+
+        <motion.div
+          className="about__inner"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-80px' }}
+        >
+          <motion.div className="about__photo-wrap" variants={leftVariants}>
+            <img
+              className="about__photo"
+              src={myPhoto}
+              alt="Представитель команды агентства"
+              loading="lazy"
+            />
+          </motion.div>
+
+          <motion.div className="about__content" variants={rightVariants}>
+            <h2 className="about__title">
+              Одна команда вместо{' '}
+              <span className="about__title-accent">трёх подрядчиков</span>
+            </h2>
+
+            <p className="about__bio">
+              Мы объединяем контент, рекламу и веб-разработку в одну систему
+              привлечения клиентов.
+            </p>
+
+            <p className="about__bio">
+              Вместо поиска нескольких специалистов вы работаете с одной командой,
+              которая сопровождает проект от идеи до запуска и дальнейшего развития.
+            </p>
+
+            <p className="about__bio">
+              Работаем с малым и средним бизнесом и помогаем выстраивать понятную
+              систему привлечения клиентов через контент, рекламу и современные
+              веб-решения.
+            </p>
+
+            <ul className="about__perks">
+              {PERKS.map((perk) => (
+                <motion.li
+                  key={perk.label}
+                  className="about__perk"
+                  variants={perkVariants}
+                >
+                  <span className="about__perk-icon">{perk.icon}</span>
+                  <span className="about__perk-label">{perk.label}</span>
+                </motion.li>
+              ))}
+            </ul>
+
+            <div className="about__meta">
+              <span className="about__meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
+                  <path d="M8 1.5A4.5 4.5 0 018 10.5C5.5 10.5 2 7.5 2 5a6 6 0 1112 0c0 2.5-3.5 5.5-6 5.5zM8 6a1 1 0 100-2 1 1 0 000 2z"
+                    stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+                </svg>
+                Кишинёв, Молдова
+              </span>
+              <span className="about__meta-item">
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
+                  <path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 0v6l3 2"
+                    stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                RO · RU · EN · FR
+              </span>
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
-  )
+  );
 }
 
 export default AboutSection;
