@@ -7,7 +7,6 @@ import {
 } from 'framer-motion';
 import { Link } from 'react-scroll';
 import './Hero.scss';
-import { TELEGRAM_URL } from '../../config/site';
 
 const GLOW_SPOTS = [
   { variant: 'cyan', shift: 72 },
@@ -95,7 +94,7 @@ const CAPABILITIES = [
   {
     id: 'traffic',
     color: 'blue',
-    tag: 'Traffic',
+    tag: 'Targeting',
     desc: 'Приводим аудиторию',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -107,7 +106,7 @@ const CAPABILITIES = [
   {
     id: 'conversion',
     color: 'violet',
-    tag: 'Conversion',
+    tag: 'Web Site',
     desc: 'Превращаем в клиентов',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -154,15 +153,6 @@ const SERVICES = [
       </svg>
     ),
   },
-  {
-    label: 'Конверсия и рост',
-    icon: (
-      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <path d="M2 10.5c0-2.5 1.2-5 3-5 1 0 1.8.9 2.2 2.2C7.5 6.4 8.3 5.5 9.5 5.5c1.8 0 3 2.5 3 5 0 1.2-.4 1.8-1.2 1.8-.8 0-1.3-.7-1.7-1.6-.4.9-.9 1.6-1.7 1.6-.8 0-1.3-.7-1.7-1.6-.4.9-.9 1.6-1.7 1.6C3.2 12.3 2 11.7 2 10.5z"
-          stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
 ];
 
 function Hero() {
@@ -198,10 +188,6 @@ function Hero() {
             initial="hidden"
             animate="visible"
           >
-            <motion.p className="hero__badge" variants={itemVariants}>
-              Агентство полного цикла
-            </motion.p>
-
             <motion.h1 className="hero__title" variants={itemVariants}>
               Контент привлекает.<br />
               Реклама приводит.<br />
@@ -215,18 +201,20 @@ function Hero() {
             </motion.p>
 
             <motion.div className="hero__actions" variants={itemVariants}>
-              <a
+              <Link
                 className="hero__btn hero__btn--primary"
-                href={TELEGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                to="contact"
+                smooth
+                offset={-16}
+                duration={800}
+                spy={false}
               >
                 Обсудить проект
                 <svg className="hero__btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path d="M3 8h10M9 4l4 4-4 4"
                     stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-              </a>
+              </Link>
               <Link
                 className="hero__btn hero__btn--secondary"
                 to="portfolio"
@@ -335,32 +323,6 @@ function Hero() {
         </div>
       </div>
 
-      <motion.div
-        className="hero__scroll-hint"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <span className="hero__scroll-label">Листайте</span>
-        <Link to="services" smooth offset={-16} duration={800}>
-          <motion.span
-            className="hero__scroll-arrow"
-            animate={{ y: [0, 7, 7, 0] }}
-            transition={{
-              duration: 2.6,
-              repeat: Infinity,
-              times: [0, 0.45, 0.6, 1],
-              ease: 'easeInOut',
-            }}
-            aria-label="Прокрутить вниз"
-          >
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M6 9l6 6 6-6"
-                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </motion.span>
-        </Link>
-      </motion.div>
     </section>
   );
 }

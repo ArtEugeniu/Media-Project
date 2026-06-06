@@ -7,8 +7,8 @@
     "tags": ["Контент", "Видео-продакшн"],
     "media": {
       "type": "video",
-      "video": "/clean-web.mp4",
-      "poster": "/clean-poster.jpg"
+      "video": "/clean-preview.mp4",
+      "webm": "/clean-preview.webm"
     },
     "link": null,
     "comingSoon": false

@@ -1,7 +1,21 @@
 import { useRef } from 'react';
-import { motion } from 'framer-motion';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
 import './ProjectCards.scss';
 import projectCardData from '../../../assets/data/projectCardData.json';
+
+const ArrowIcon = ({ direction }) => (
+  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path
+      d={direction === 'prev' ? 'M10 4L6 8l4 4' : 'M6 4l4 4-4 4'}
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 const ExternalIcon = () => (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -14,11 +28,6 @@ const ExternalIcon = () => (
     />
   </svg>
 );
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
-};
 
 function resolvePublicPath(path) {
   if (!path) {
@@ -43,15 +52,19 @@ function CaseMedia({ item, videoRef }) {
     return (
       <video
         ref={videoRef}
-        className="projectCards__img"
-        src={resolvePublicPath(item.media.video)}
-        poster={item.media.poster ? resolvePublicPath(item.media.poster) : undefined}
+        className="projectCards__img projectCards__video"
+        src={item.media.webm ? undefined : resolvePublicPath(item.media.video)}
         muted
         loop
         playsInline
         preload="metadata"
         aria-label={item.title}
-      />
+      >
+        {item.media.webm && (
+          <source src={resolvePublicPath(item.media.webm)} type="video/webm" />
+        )}
+        <source src={resolvePublicPath(item.media.video)} type="video/mp4" />
+      </video>
     );
   }
 
@@ -102,26 +115,28 @@ function ProjectCard({ item }) {
     }
 
     video.pause();
-
-    try {
-      video.currentTime = 0;
-    } catch (error) {
-      // Ignore seek errors while metadata is still loading.
-    }
   };
 
   return (
-    <motion.article
-      className={`projectCards__card${item.comingSoon ? ' projectCards__card--soon' : ''}`}
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-40px' }}
+    <article
+      className={`projectCards__card${hasVideo ? ' projectCards__card--video' : ''}${item.comingSoon ? ' projectCards__card--soon' : ''}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div className="projectCards__image-wrap">
         <CaseMedia item={item} videoRef={videoRef} />
+        {hasVideo && (
+          <span className="projectCards__play" aria-hidden="true">
+            <span className="projectCards__play-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 7.5v9l8-4.5-8-4.5z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+          </span>
+        )}
         <span className="projectCards__type">{item.type}</span>
 
         {item.comingSoon && (
@@ -168,7 +183,7 @@ function ProjectCard({ item }) {
 
           {!item.comingSoon && !item.link && (
             <span className="projectCards__btn projectCards__btn--primary">
-              Посмотреть кейс
+              Посмотреть кейс <ExternalIcon />
             </span>
           )}
 
@@ -177,16 +192,63 @@ function ProjectCard({ item }) {
           )}
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }
 
 function ProjectCards() {
+  const swiperRef = useRef(null);
+
   return (
     <div className="projectCards">
-      {projectCardData.map((item) => (
-        <ProjectCard key={item.id} item={item} />
-      ))}
+      <div className="projectCards__slider">
+        <button
+          type="button"
+          className="projectCards__nav projectCards__nav--prev"
+          onClick={() => swiperRef.current?.slidePrev()}
+        >
+          <ArrowIcon direction="prev" />
+        </button>
+
+        <Swiper
+          className="projectCards__swiper"
+          modules={[Autoplay]}
+          slidesPerView={1}
+          spaceBetween={24}
+          speed={650}
+          loop={projectCardData.length > 3}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+          breakpoints={{
+            600: {
+              slidesPerView: 2,
+            },
+            1024: {
+              slidesPerView: 3,
+            },
+          }}
+        >
+          {projectCardData.map((item) => (
+            <SwiperSlide key={item.id} className="projectCards__slide">
+              <ProjectCard item={item} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        <button
+          type="button"
+          className="projectCards__nav projectCards__nav--next"
+          onClick={() => swiperRef.current?.slideNext()}
+        >
+          <ArrowIcon direction="next" />
+        </button>
+      </div>
     </div>
   );
 }

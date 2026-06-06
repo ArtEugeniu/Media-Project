@@ -120,23 +120,6 @@ function AboutSection() {
                 </motion.li>
               ))}
             </ul>
-
-            <div className="about__meta">
-              <span className="about__meta-item">
-                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
-                  <path d="M8 1.5A4.5 4.5 0 018 10.5C5.5 10.5 2 7.5 2 5a6 6 0 1112 0c0 2.5-3.5 5.5-6 5.5zM8 6a1 1 0 100-2 1 1 0 000 2z"
-                    stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-                </svg>
-                Кишинёв, Молдова
-              </span>
-              <span className="about__meta-item">
-                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
-                  <path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 0v6l3 2"
-                    stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                RO · RU · EN · FR
-              </span>
-            </div>
           </motion.div>
         </motion.div>
       </div>

@@ -132,26 +132,4 @@
       height: 16px;
     }
   }
-
-  &__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 24px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    margin-top: 4px;
-  }
-
-  &__meta-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: var(--color-text-dim);
-
-    svg {
-      flex-shrink: 0;
-      color: var(--color-accent-cyan);
-    }
-  }
 }

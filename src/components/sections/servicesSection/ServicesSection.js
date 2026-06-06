@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-scroll';
 import './ServicesSection.scss';
-import { TELEGRAM_URL } from '../../../config/site';
 
 const CheckIcon = () => (
   <svg
@@ -154,14 +154,16 @@ function ServicesSection() {
                   ))}
                 </ul>
 
-                <a
+                <Link
                   className="services__card-btn"
-                  href={TELEGRAM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  to="contact"
+                  smooth
+                  offset={-16}
+                  duration={800}
+                  spy={false}
                 >
                   Обсудить проект
-                </a>
+                </Link>
               </motion.article>
             ))}
           </div>
