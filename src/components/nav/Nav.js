@@ -196,7 +196,7 @@ function Nav({ headerHeight, isBurgerOpen, toggleBurger, burgerButton }) {
             </li>
           ))}
         </ul>
-        <LanguageSwitcher variant="panel" />
+        <LanguageSwitcher variant="header" />
       </div>
     </nav>
   );

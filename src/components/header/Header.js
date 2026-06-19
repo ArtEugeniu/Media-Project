@@ -1,6 +1,5 @@
 import Nav from "../nav/Nav";
 import BurgerMenuButton from "../burgerMenu/BurgerMenu";
-import LanguageSwitcher from "../languageSwitcher/LanguageSwitcher";
 import './Header.scss'
 import { useEffect, useState, useRef } from "react";
 
@@ -19,7 +18,9 @@ function Header({ isBurgerOpen, toggleBurger }) {
     }
 
     const updateHeaderHeight = () => {
-      setHeaderHeight(headerEl.offsetHeight);
+      const height = headerEl.offsetHeight;
+      setHeaderHeight(height);
+      document.documentElement.style.setProperty('--header-height', `${height}px`);
     };
 
     const updateScrolledState = () => {
@@ -82,7 +83,6 @@ function Header({ isBurgerOpen, toggleBurger }) {
     <header className={`header ${isScrolled ? 'header--scrolled' : ''} ${isBurgerOpen ? 'header--opacity' : ''}`}>
       <div className="container">
         <Nav headerHeight={headerHeight} isBurgerOpen={isBurgerOpen} toggleBurger={toggleBurger} burgerButton={burgerButton} />
-        <LanguageSwitcher variant="header" />
         <BurgerMenuButton toggleBurger={toggleBurger} isBurgerOpen={isBurgerOpen} burgerButton={burgerButton} />
       </div>
     </header>

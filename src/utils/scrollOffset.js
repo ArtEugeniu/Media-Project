@@ -1,4 +1,4 @@
-export const SECTION_SCROLL_INSET = 8;
+export const SECTION_SCROLL_INSET = 12;
 
 export const DEFAULT_HEADER_HEIGHT = 76;
 export const DEFAULT_HEADER_HEIGHT_MOBILE = 68;
@@ -35,6 +35,7 @@ export function getMeasuredHeaderHeight() {
   return header?.offsetHeight || getDefaultHeaderHeight();
 }
 
+/** Target scroll offset for react-scroll (negative = stop higher on the page). */
 export function getSectionScrollOffset(headerHeight) {
   const height = headerHeight > 0 ? headerHeight : getMeasuredHeaderHeight();
   const sectionPadding = getSectionTopPadding();
@@ -43,20 +44,38 @@ export function getSectionScrollOffset(headerHeight) {
   return -offset;
 }
 
-/** Delay after closing the mobile menu before scrolling (menu-lock + panel transition). */
-export const MOBILE_MENU_SCROLL_DELAY_MS = 80;
-
-export function scrollToSection(sectionId) {
+export function getSectionScrollTop(sectionId) {
   if (typeof document === 'undefined') {
-    return false;
+    return null;
   }
 
   const element = document.getElementById(sectionId);
 
   if (!element) {
+    return null;
+  }
+
+  const headerHeight = getMeasuredHeaderHeight();
+  const sectionPadding = getSectionTopPadding();
+  const top = window.scrollY
+    + element.getBoundingClientRect().top
+    - headerHeight
+    - SECTION_SCROLL_INSET
+    + sectionPadding;
+
+  return Math.max(0, top);
+}
+
+/** Delay after closing the mobile menu before scrolling (menu-lock + panel transition). */
+export const MOBILE_MENU_SCROLL_DELAY_MS = 80;
+
+export function scrollToSection(sectionId) {
+  const top = getSectionScrollTop(sectionId);
+
+  if (top === null) {
     return false;
   }
 
-  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  window.scrollTo({ top, behavior: 'smooth' });
   return true;
 }

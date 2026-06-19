@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { bindDocumentLanguageSync } from './syncDocumentLanguage';
 import { FALLBACK_LANG, resolveLanguage, SUPPORTED_LANGS } from './languages';
+import { preloadDisplayFonts } from '../utils/preloadFonts';
 
 import ruCommon from '../locales/ru/common.json';
 import ruNav from '../locales/ru/nav.json';
@@ -98,6 +99,8 @@ if (!i18n.isInitialized) {
   });
 
   bindDocumentLanguageSync(i18n);
+  preloadDisplayFonts();
+  i18n.on('languageChanged', preloadDisplayFonts);
 }
 
 export default i18n;

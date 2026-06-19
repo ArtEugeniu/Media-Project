@@ -13,11 +13,14 @@ body {
   line-height: 1.5;
   background-color: var(--color-bg-deep);
   color: var(--color-text-primary);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-height) + 8px);
+  scroll-padding-top: calc(var(--header-height) + 12px);
 }
 
 html.menu-lock,
@@ -99,6 +102,14 @@ body.menu-lock {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 15px;
+}
+
+.services,
+.portfolio,
+.process,
+.about,
+.contact {
+  scroll-margin-top: calc(var(--header-height) + 12px);
 }
 
 button {
