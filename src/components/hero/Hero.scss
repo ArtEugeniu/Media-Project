@@ -1,4 +1,4 @@
-﻿.hero {
+.hero {
   --ease-node-smooth: cubic-bezier(0.33, 0, 0.15, 1);
   --duration-node-hover: 0.9s;
 
@@ -9,12 +9,17 @@
   padding: 72px 0 108px;
   overflow: hidden;
 
+  @media (max-width: 960px) {
+    align-items: flex-start;
+    padding: 56px 0 88px;
+  }
+
   @media (max-width: 768px) {
     padding: 48px 0 88px;
     min-height: calc(100dvh - 52px);
   }
 
-  // в”Ђв”Ђ backdrop: layered atmosphere в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+  // ── backdrop: layered atmosphere ──────────────────
   &__backdrop {
     position: absolute;
     inset: 0;
@@ -211,7 +216,7 @@
     mask-image: linear-gradient(180deg, black 0%, black 70%, transparent 100%);
   }
 
-  // в”Ђв”Ђ layout в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+  // ── layout ────────────────────────────────────────
   &__container {
     position: relative;
     z-index: 1;
@@ -226,17 +231,27 @@
 
     @media (max-width: 960px) {
       grid-template-columns: 1fr;
-      gap: 52px;
+      gap: clamp(48px, 10vw, 72px);
     }
   }
 
-  // в”Ђв”Ђ left: content в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+  // ── left: content ─────────────────────────────────
   &__content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     position: relative;
     z-index: 2;
+
+    @media (max-width: 960px) {
+      width: 100%;
+      max-width: 680px;
+      justify-self: center;
+      margin-right: auto;
+      margin-left: auto;
+      align-items: center;
+      text-align: center;
+    }
   }
 
   &__badge {
@@ -282,14 +297,24 @@
     color: var(--color-text-muted);
     max-width: 480px;
     margin-bottom: 40px;
+
+    @media (max-width: 960px) {
+      margin-right: auto;
+      margin-left: auto;
+    }
   }
 
-  // в”Ђв”Ђ buttons в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+  // ── buttons ───────────────────────────────────────
   &__actions {
     display: flex;
     flex-wrap: wrap;
     gap: 14px;
     margin-bottom: 36px;
+
+    @media (max-width: 960px) {
+      justify-content: center;
+      width: 100%;
+    }
   }
 
   &__btn {
@@ -356,13 +381,18 @@
     }
   }
 
-  // в”Ђв”Ђ services row в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+  // ── services row ──────────────────────────────────
   &__services {
     display: flex;
     flex-wrap: wrap;
     gap: 8px 22px;
     padding-top: 24px;
     border-top: 1px solid rgba(255, 255, 255, 0.07);
+
+    @media (max-width: 960px) {
+      justify-content: center;
+      width: 100%;
+    }
   }
 
   &__service {
@@ -387,7 +417,7 @@
     }
   }
 
-  // в”Ђв”Ђ right: three-node visual в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+  // ── right: three-node visual ──────────────────────
   &__visual {
     position: relative;
     min-height: 480px;
@@ -398,7 +428,27 @@
 
     @media (max-width: 960px) {
       min-height: auto;
-      padding: 0 8px;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 28px clamp(10px, 3vw, 24px) 0;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: min(520px, 92%);
+        height: 1px;
+        transform: translateX(-50%);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(24, 224, 255, 0.26),
+          rgba(59, 130, 246, 0.18),
+          transparent
+        );
+      }
     }
   }
 
@@ -468,8 +518,13 @@
     margin-left: 24px;
 
     @media (max-width: 960px) {
-      gap: 28px;
+      gap: 24px;
       margin-left: 0;
+      max-width: 560px;
+    }
+
+    @media (max-width: 600px) {
+      gap: 20px;
       max-width: 100%;
     }
   }
@@ -501,8 +556,26 @@
     }
 
     @media (max-width: 960px) {
-      gap: 20px;
+      --node-size: 96px;
+      --core-size: 66px;
+      gap: 18px;
       --node-offset: 0px;
+
+      &--violet {
+        --node-size: 106px;
+        --core-size: 72px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      --node-size: 88px;
+      --core-size: 60px;
+      gap: 16px;
+
+      &--violet {
+        --node-size: 96px;
+        --core-size: 66px;
+      }
     }
   }
 
@@ -839,6 +912,15 @@
     border-radius: 14px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+
+    @media (max-width: 960px) {
+      padding: 14px 16px;
+    }
+
+    @media (max-width: 600px) {
+      padding: 12px 14px;
+      border-radius: 12px;
+    }
   }
 
   &__card-tag {
@@ -858,7 +940,7 @@
     letter-spacing: 0.01em;
   }
 
-  // в”Ђв”Ђ scroll hint в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+  // ── scroll hint ───────────────────────────────────
   &__scroll-hint {
     position: absolute;
     bottom: 36px;
@@ -912,7 +994,7 @@
   }
 }
 
-// в”Ђв”Ђ ambient glow breathing в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ── ambient glow breathing ────────────────────────────
 
 @keyframes heroGlowBreatheA {
   0%, 100% {
@@ -991,7 +1073,7 @@
   }
 }
 
-// ── hero node life: float, glow flicker, layered shadows ─
+// -- hero node life: float, glow flicker, layered shadows -
 
 @keyframes heroNodeFloatCyan {
   0%, 100% {
@@ -1299,3 +1381,63 @@
     animation: none !important;
   }
 }
+
+@media (max-width: 768px) {
+  .hero__backdrop--static {
+    .hero__glow-track--cyan {
+      width: min(420px, 92vw);
+      height: min(420px, 92vw);
+      top: 8%;
+      right: -18%;
+    }
+  }
+
+  .hero__glow {
+    animation: none !important;
+    filter: blur(56px);
+  }
+
+  .hero__dust {
+    opacity: 0.07;
+    animation: none;
+  }
+
+  .hero__ribbon-halo,
+  .hero__ribbon-glow,
+  .hero__pulse {
+    display: none;
+  }
+
+  .hero__node {
+    .hero__row--cyan &,
+    .hero__row--blue &,
+    .hero__row--violet & {
+      animation-duration: 14s;
+    }
+  }
+
+  .hero__node-glow {
+    animation: none !important;
+    filter: blur(8px);
+    opacity: 0.72;
+    inset: -14px;
+  }
+
+  .hero__node-ring {
+    animation: none !important;
+    opacity: 0.92;
+  }
+
+  .hero__node-core {
+    animation: none !important;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .hero__row--cyan .hero__node:hover,
+    .hero__row--blue .hero__node:hover,
+    .hero__row--violet .hero__node:hover {
+      filter: none;
+    }
+  }
+}
+

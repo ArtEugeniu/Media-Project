@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-scroll';
+import { getSectionScrollOffset } from '../../../utils/scrollOffset';
 import './ServicesSection.scss';
 
 const CheckIcon = () => (
@@ -109,6 +110,8 @@ const cardVariants = {
 };
 
 function ServicesSection() {
+  const sectionScrollOffset = getSectionScrollOffset();
+
   return (
     <section className="services" id="services">
       <div className="container">
@@ -158,7 +161,7 @@ function ServicesSection() {
                   className="services__card-btn"
                   to="contact"
                   smooth
-                  offset={-16}
+                  offset={sectionScrollOffset}
                   duration={800}
                   spy={false}
                 >

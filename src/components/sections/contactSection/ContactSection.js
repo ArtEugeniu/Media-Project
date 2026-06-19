@@ -163,7 +163,7 @@ function ContactSection() {
         >
           <motion.div className="contact__heading" variants={headingVariants}>
             <span className="contact__badge">Контакт</span>
-            <h2 className="contact__title">
+            <h2 className="contact__title section-title">
               Обсудим{' '}
               <span className="contact__title-accent">ваш проект</span>
             </h2>

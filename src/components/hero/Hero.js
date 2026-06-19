@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   motion,
   useReducedMotion,
@@ -7,8 +7,11 @@ import {
 } from 'framer-motion';
 import { Link } from 'react-scroll';
 import './Hero.scss';
+import { getSectionScrollOffset } from '../../utils/scrollOffset';
 
-const GLOW_SPOTS = [
+const MOBILE_LAYOUT_QUERY = '(max-width: 768px)';
+
+const GLOW_SPOTS_DESKTOP = [
   { variant: 'cyan', shift: 72 },
   { variant: 'blue', shift: 108 },
   { variant: 'violet', shift: 88 },
@@ -17,6 +20,43 @@ const GLOW_SPOTS = [
   { variant: 'left-mid', shift: 96 },
   { variant: 'center', shift: 80 },
 ];
+
+const GLOW_SPOTS_MOBILE = [{ variant: 'cyan', shift: 0 }];
+
+function useMobileLayout() {
+  const [isMobile, setIsMobile] = useState(() => (
+    typeof window !== 'undefined'
+    && typeof window.matchMedia === 'function'
+    && window.matchMedia(MOBILE_LAYOUT_QUERY).matches
+  ));
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+      return undefined;
+    }
+
+    const mediaQuery = window.matchMedia(MOBILE_LAYOUT_QUERY);
+    const handleChange = () => setIsMobile(mediaQuery.matches);
+
+    handleChange();
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  return isMobile;
+}
+
+function HeroBackdropLayers() {
+  return (
+    <>
+      <span className="hero__grid" />
+      <span className="hero__volume" />
+      <span className="hero__dust" />
+      <span className="hero__vignette" />
+    </>
+  );
+}
 
 function HeroGlow({ variant, shift, scrollYProgress }) {
   const reduceMotion = useReducedMotion();
@@ -33,11 +73,48 @@ function HeroGlow({ variant, shift, scrollYProgress }) {
   );
 }
 
+function HeroBackdropParallax({ heroRef }) {
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+
+  return (
+    <div className="hero__backdrop" aria-hidden="true">
+      <HeroBackdropLayers />
+      {GLOW_SPOTS_DESKTOP.map((spot) => (
+        <HeroGlow
+          key={spot.variant}
+          variant={spot.variant}
+          shift={spot.shift}
+          scrollYProgress={scrollYProgress}
+        />
+      ))}
+    </div>
+  );
+}
+
+function HeroBackdropStatic() {
+  return (
+    <div className="hero__backdrop hero__backdrop--static" aria-hidden="true">
+      <HeroBackdropLayers />
+      {GLOW_SPOTS_MOBILE.map((spot) => (
+        <span
+          key={spot.variant}
+          className={`hero__glow-track hero__glow-track--${spot.variant}`}
+          aria-hidden="true"
+        >
+          <span className={`hero__glow hero__glow--${spot.variant}`} />
+        </span>
+      ))}
+    </div>
+  );
+}
+
 const contentVariants = {
-  hidden: { opacity: 0 },
+  hidden: {},
   visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.13, delayChildren: 0.06 },
+    transition: { staggerChildren: 0.13, delayChildren: 0.08 },
   },
 };
 
@@ -157,27 +234,16 @@ const SERVICES = [
 
 function Hero() {
   const heroRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  });
+  const isMobile = useMobileLayout();
+  const sectionScrollOffset = getSectionScrollOffset();
 
   return (
     <section className="hero" id="home" ref={heroRef}>
-      <div className="hero__backdrop" aria-hidden="true">
-        <span className="hero__grid" />
-        {GLOW_SPOTS.map((spot) => (
-          <HeroGlow
-            key={spot.variant}
-            variant={spot.variant}
-            shift={spot.shift}
-            scrollYProgress={scrollYProgress}
-          />
-        ))}
-        <span className="hero__volume" />
-        <span className="hero__dust" />
-        <span className="hero__vignette" />
-      </div>
+      {isMobile ? (
+        <HeroBackdropStatic />
+      ) : (
+        <HeroBackdropParallax heroRef={heroRef} />
+      )}
 
       <div className="container hero__container">
         <div className="hero__layout">
@@ -188,12 +254,12 @@ function Hero() {
             initial="hidden"
             animate="visible"
           >
-            <motion.h1 className="hero__title" variants={itemVariants}>
+            <h1 className="hero__title">
               Контент привлекает.<br />
               Реклама приводит.<br />
               Сайт{' '}
               <span className="hero__title-accent">продаёт.</span>
-            </motion.h1>
+            </h1>
 
             <motion.p className="hero__subtitle" variants={itemVariants}>
               Создаём систему привлечения клиентов под ключ.
@@ -205,7 +271,7 @@ function Hero() {
                 className="hero__btn hero__btn--primary"
                 to="contact"
                 smooth
-                offset={-16}
+                offset={sectionScrollOffset}
                 duration={800}
                 spy={false}
               >
@@ -219,7 +285,7 @@ function Hero() {
                 className="hero__btn hero__btn--secondary"
                 to="portfolio"
                 smooth
-                offset={-16}
+                offset={sectionScrollOffset}
                 duration={800}
                 spy={false}
               >
@@ -291,11 +357,13 @@ function Hero() {
               <path className="hero__ribbon-core" d={RIBBON_PATH} />
 
               <circle className="hero__pulse" r="5" fill="url(#hero-pulse-gradient)">
-                <animateMotion
-                  dur={PULSE_DURATION}
-                  repeatCount="indefinite"
-                  path={RIBBON_PATH}
-                />
+                {!isMobile && (
+                  <animateMotion
+                    dur={PULSE_DURATION}
+                    repeatCount="indefinite"
+                    path={RIBBON_PATH}
+                  />
+                )}
               </circle>
             </svg>
 

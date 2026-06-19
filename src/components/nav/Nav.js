@@ -3,6 +3,7 @@ import { Link } from 'react-scroll';
 import { useRef, useEffect, useState } from 'react';
 import { NAV_ITEMS } from '../../config/navigation';
 import { DEFAULT_LANG, SITE_NAME } from '../../config/site';
+import { getSectionScrollOffset } from '../../utils/scrollOffset';
 
 function Nav({ headerHeight, isBurgerOpen, toggleBurger, burgerButton }) {
   const burgerMenu = useRef();
@@ -25,38 +26,114 @@ function Nav({ headerHeight, isBurgerOpen, toggleBurger, burgerButton }) {
   }, [isBurgerOpen, toggleBurger, burgerButton]);
 
   useEffect(() => {
-    function updateActiveSection() {
-      const marker = window.scrollY + headerHeight + 80;
-      let currentSection = 'home';
+    if (headerHeight === 0) {
+      return undefined;
+    }
 
-      NAV_ITEMS.forEach((item) => {
-        const section = document.getElementById(item.section);
+    const sectionIds = NAV_ITEMS.map((item) => item.section);
+    const visibility = new Map(sectionIds.map((id) => [id, id === 'home']));
+    const observedElements = new WeakSet();
+    let observer;
+    let reconnectTimer;
 
-        if (section && section.offsetTop <= marker) {
-          currentSection = item.section;
+    const pickActiveSection = () => {
+      let current = 'home';
+
+      sectionIds.forEach((id) => {
+        if (visibility.get(id)) {
+          current = id;
         }
       });
 
-      setActiveSection(currentSection);
-    }
+      setActiveSection(current);
+    };
 
-    updateActiveSection();
-    window.addEventListener('scroll', updateActiveSection, { passive: true });
-    window.addEventListener('resize', updateActiveSection);
+    const connectObserver = () => {
+      const elements = sectionIds
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+
+      if (!elements.length) {
+        reconnectTimer = window.setTimeout(connectObserver, 200);
+        return;
+      }
+
+      if (!observer) {
+        observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              visibility.set(entry.target.id, entry.isIntersecting);
+            });
+            pickActiveSection();
+          },
+          {
+            root: null,
+            rootMargin: `-${headerHeight + 80}px 0px -55% 0px`,
+            threshold: 0,
+          },
+        );
+      }
+
+      elements.forEach((element) => {
+        if (observedElements.has(element)) {
+          return;
+        }
+
+        observedElements.add(element);
+        observer.observe(element);
+      });
+
+      pickActiveSection();
+
+      if (elements.length < sectionIds.length) {
+        reconnectTimer = window.setTimeout(connectObserver, 200);
+      }
+    };
+
+    const scheduleReconnect = () => {
+      if (reconnectTimer) {
+        window.clearTimeout(reconnectTimer);
+      }
+
+      reconnectTimer = window.setTimeout(connectObserver, 150);
+    };
+
+    connectObserver();
+
+    const root = document.getElementById('root') || document.body;
+    const mutationObserver = new MutationObserver(scheduleReconnect);
+    mutationObserver.observe(root, { childList: true, subtree: true });
 
     return () => {
-      window.removeEventListener('scroll', updateActiveSection);
-      window.removeEventListener('resize', updateActiveSection);
+      mutationObserver.disconnect();
+
+      if (reconnectTimer) {
+        window.clearTimeout(reconnectTimer);
+      }
+
+      if (observer) {
+        observer.disconnect();
+      }
     };
   }, [headerHeight]);
 
-  // -(headerHeight - 56): компенсирует padding-top секций (64px) и оставляет ~8px зазор под хедером
-  const scrollOffset = -(headerHeight - 56);
+  const scrollOffset = getSectionScrollOffset(headerHeight);
 
-  function scrollToTop() {
-    setActiveSection('home');
+  function scrollToTop(event) {
+    event.currentTarget.blur();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (isBurgerOpen) toggleBurger();
+
+    if (isBurgerOpen) {
+      toggleBurger();
+    }
+  }
+
+  function handleNavClick(event) {
+    event.currentTarget.blur();
+
+    if (isBurgerOpen) {
+      toggleBurger();
+    }
   }
 
   return (
@@ -91,12 +168,7 @@ function Nav({ headerHeight, isBurgerOpen, toggleBurger, burgerButton }) {
                   offset={scrollOffset}
                   duration={800}
                   className={getLinkClassName(item.section)}
-                  activeClass="nav__link--active"
-                  spy
-                  onClick={() => {
-                    setActiveSection(item.section);
-                    if (isBurgerOpen) toggleBurger();
-                  }}
+                  onClick={handleNavClick}
                 >
                   {getLabel(item)}
                 </Link>

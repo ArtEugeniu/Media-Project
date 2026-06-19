@@ -50,6 +50,10 @@
 
   &__item {
     list-style: none;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
   }
 
   &__link {
@@ -113,9 +117,16 @@
 
       &.nav__link--active {
         color: #050810;
+        background: linear-gradient(
+          135deg,
+          #67e8f9 0%,
+          var(--color-accent-cyan) 42%,
+          var(--color-accent-blue) 100%
+        );
         box-shadow:
-          0 4px 20px rgba(34, 211, 238, 0.3),
-          0 0 0 1px rgba(255, 255, 255, 0.18) inset;
+          0 0 0 2px rgba(255, 255, 255, 0.24) inset,
+          0 0 0 3px rgba(34, 211, 238, 0.16),
+          0 8px 30px rgba(34, 211, 238, 0.42);
       }
     }
   }
@@ -132,19 +143,30 @@
       width: min(280px, 85vw);
       height: 100dvh;
       padding: 72px 20px 28px;
-      background: var(--glass-bg);
-      border-left: 1px solid var(--glass-border);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      box-shadow: -8px 0 40px rgba(0, 0, 0, 0.4);
+      background:
+        linear-gradient(180deg, rgba(12, 22, 40, 0.98), rgba(6, 11, 22, 0.98)),
+        var(--color-bg-mid);
+      border-left: 1px solid rgba(34, 211, 238, 0.18);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow:
+        -10px 0 42px rgba(0, 0, 0, 0.58),
+        inset 1px 0 0 rgba(255, 255, 255, 0.04);
       transform: translateX(100%);
-      transition: transform 0.45s var(--ease-out-expo); /* выезд панели — отдельно, не hover */
+      transition:
+        transform 0.45s var(--ease-out-expo),
+        visibility 0s linear 0.45s;
       visibility: hidden;
+      pointer-events: none;
     }
 
     &__panel--open {
       transform: translateX(0);
+      transition:
+        transform 0.45s var(--ease-out-expo),
+        visibility 0s linear 0s;
       visibility: visible;
+      pointer-events: auto;
     }
 
     &__list {
@@ -155,19 +177,95 @@
     }
 
     &__link {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      min-height: 54px;
       padding: 16px 18px;
       font-size: 17px;
       text-align: left;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.045);
+      -webkit-tap-highlight-color: transparent;
+
+      &:hover {
+        color: var(--color-text-primary);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      &:active {
+        color: var(--color-text-primary);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &:focus-visible {
+        outline: 2px solid rgba(34, 211, 238, 0.45);
+        outline-offset: 2px;
+      }
 
       &--active {
+        color: var(--color-text-primary);
+        background: rgba(255, 255, 255, 0.06);
+        box-shadow: none;
         border-left: 3px solid var(--color-accent-cyan);
       }
     }
 
     &__link--cta {
+      justify-content: center;
       width: 100%;
-      min-height: 48px;
+      min-height: 54px;
       font-size: 16px;
+      color: #04111f;
+      background: linear-gradient(
+        135deg,
+        #a5f3fc 0%,
+        var(--color-accent-cyan) 42%,
+        #60a5fa 100%
+      );
+      border-color: rgba(165, 243, 252, 0.62);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.22) inset,
+        0 10px 32px rgba(34, 211, 238, 0.34);
+
+      &:hover {
+        color: #04111f;
+        background: linear-gradient(
+          135deg,
+          #cffafe 0%,
+          #22d3ee 46%,
+          #60a5fa 100%
+        );
+      }
+
+      &:active {
+        transform: none;
+        color: #04111f;
+        background: linear-gradient(
+          135deg,
+          #a5f3fc 0%,
+          var(--color-accent-cyan) 42%,
+          #60a5fa 100%
+        );
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.22) inset,
+          0 10px 32px rgba(34, 211, 238, 0.34);
+      }
+
+      &.nav__link--active {
+        color: #04111f;
+        border-left-color: transparent;
+        background: linear-gradient(
+          135deg,
+          #cffafe 0%,
+          #67e8f9 36%,
+          var(--color-accent-blue) 100%
+        );
+      }
     }
   }
 }

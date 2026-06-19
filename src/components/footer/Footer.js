@@ -8,10 +8,13 @@ import {
   SITE_NAME,
   TELEGRAM_URL,
 } from '../../config/site';
+import { getSectionScrollOffset } from '../../utils/scrollOffset';
 
 const YEAR = new Date().getFullYear();
 
 function Footer() {
+  const sectionScrollOffset = getSectionScrollOffset();
+
   return (
     <footer className="footer">
       <div className="container footer__inner">
@@ -36,7 +39,7 @@ function Footer() {
                   className="footer__nav-link"
                   to={item.section}
                   smooth
-                  offset={item.section === 'home' ? 0 : -16}
+                  offset={item.section === 'home' ? 0 : sectionScrollOffset}
                   duration={800}
                 >
                   {item.label[DEFAULT_LANG]}

@@ -112,16 +112,26 @@
     &__grid {
       background-size: 44px 44px;
       opacity: 0.045;
+      animation: none;
     }
 
     &__mesh {
-      min-width: 300px;
-      filter: blur(80px);
-      opacity: 0.3;
+      min-width: 280px;
+      filter: blur(64px);
+      opacity: 0.24;
+      animation: none !important;
     }
 
-    &__beam {
-      opacity: 0.08;
+    &__mesh--blue,
+    &__mesh--violet,
+    &__beam,
+    &__dust {
+      display: none;
+    }
+
+    &__base {
+      filter: blur(12px);
+      opacity: 0.82;
     }
   }
 }

@@ -15,22 +15,83 @@ body {
   color: var(--color-text-primary);
 }
 
+html {
+  scroll-padding-top: calc(var(--header-height) + 8px);
+}
+
+html.menu-lock,
+body.menu-lock {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body.menu-lock {
+  touch-action: none;
+}
+
 .App {
   --header-height: 76px;
+  --section-title-size: 48px;
 
   position: relative;
   isolation: isolate;
   min-height: 100vh;
   padding-top: var(--header-height);
 
+  @media (max-width: 1200px) {
+    --section-title-size: 44px;
+  }
+
   @media (max-width: 768px) {
     --header-height: 68px;
+    --section-title-size: 38px;
+  }
+
+  @media (max-width: 560px) {
+    --section-title-size: 34px;
   }
 }
 
-.App > :not(.site-backdrop):not(.header) {
+.App > :not(.site-backdrop):not(.header):not(.app-menu-overlay) {
   position: relative;
   z-index: 1;
+}
+
+.app-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 101;
+  background:
+    linear-gradient(180deg, rgba(5, 8, 16, 0.72), rgba(5, 8, 16, 0.84)),
+    rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: appMenuOverlayIn 0.45s var(--ease-out-expo);
+
+  &--closing {
+    animation: appMenuOverlayOut 0.45s var(--ease-out-expo) forwards;
+    pointer-events: none;
+  }
+}
+
+@keyframes appMenuOverlayIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes appMenuOverlayOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 .container {
@@ -76,14 +137,12 @@ section {
 }
 
 .section-title {
-  font-size: 48px;
-  margin-bottom: 30px;
+  font-family: var(--font-display);
+  font-size: var(--section-title-size);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   text-align: center;
-
-  @media (max-width: 480px) {
-    font-size: 36px;
-    margin-bottom: 15px;
-  }
 }
 
 h1, h2, h3, h4, h5, h6 {

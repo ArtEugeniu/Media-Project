@@ -87,7 +87,7 @@ function AboutSection() {
           </motion.div>
 
           <motion.div className="about__content" variants={rightVariants}>
-            <h2 className="about__title">
+            <h2 className="about__title section-title">
               Одна команда вместо{' '}
               <span className="about__title-accent">трёх подрядчиков</span>
             </h2>

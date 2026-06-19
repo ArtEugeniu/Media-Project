@@ -138,6 +138,14 @@
     @media (max-width: 768px) {
       padding: 24px;
     }
+
+    @media (min-width: 681px) and (max-width: 1024px) {
+      &:last-child {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: min(100%, calc((100% - 24px) / 2));
+      }
+    }
   }
 
   &__card-top {

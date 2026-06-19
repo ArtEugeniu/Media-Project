@@ -1,9 +1,24 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import './ProjectCards.scss';
 import projectCardData from '../../../assets/data/projectCardData.json';
+import licuriciImg from '../../../assets/images/licurici.jpg';
+import taxiProjectImg from '../../../assets/images/taxi-project.jpg';
+import ecommerceImg from '../../../assets/images/ecommerce.jpg';
+import myPortfolioSiteImg from '../../../assets/images/myPortfolioSite.jpg';
+import simpleFoodImg from '../../../assets/images/simpleFood.jpg';
+
+const PROJECT_IMAGES = {
+  'licurici.jpg': licuriciImg,
+  'taxi-project.jpg': taxiProjectImg,
+  'ecommerce.jpg': ecommerceImg,
+  'myPortfolioSite.jpg': myPortfolioSiteImg,
+  'simpleFood.jpg': simpleFoodImg,
+};
+
+const COMPACT_CARD_QUERY = '(max-width: 1199px)';
 
 const ArrowIcon = ({ direction }) => (
   <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -47,6 +62,12 @@ function canPlayVideoOnHover() {
     && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 }
 
+function canToggleMobileDetails() {
+  return typeof window !== 'undefined'
+    && typeof window.matchMedia === 'function'
+    && window.matchMedia(COMPACT_CARD_QUERY).matches;
+}
+
 function CaseMedia({ item, videoRef }) {
   if (item.media?.type === 'video') {
     return (
@@ -69,7 +90,11 @@ function CaseMedia({ item, videoRef }) {
   }
 
   const imageName = item.media?.image || item.imageURL;
-  const image = require(`../../../assets/images/${imageName}`);
+  const image = PROJECT_IMAGES[imageName];
+
+  if (!image) {
+    return null;
+  }
 
   return (
     <img
@@ -81,9 +106,98 @@ function CaseMedia({ item, videoRef }) {
   );
 }
 
-function ProjectCard({ item }) {
+function ProjectCard({ item, activeCardId, onToggleDetails }) {
+  const cardRef = useRef(null);
   const videoRef = useRef(null);
   const hasVideo = item.media?.type === 'video';
+  const detailsOpen = activeCardId === item.id;
+
+  useEffect(() => {
+    if (!hasVideo || typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+      return undefined;
+    }
+
+    const card = cardRef.current;
+    const video = videoRef.current;
+
+    if (!card || !video) {
+      return undefined;
+    }
+
+    const compactCardQuery = window.matchMedia(COMPACT_CARD_QUERY);
+    let observer;
+    let isVisible = false;
+
+    const playVideo = () => {
+      const playPromise = video.play();
+
+      if (playPromise) {
+        playPromise.catch(() => {});
+      }
+    };
+
+    const syncPlayback = () => {
+      if (compactCardQuery.matches && isVisible && !document.hidden) {
+        playVideo();
+        return;
+      }
+
+      video.pause();
+    };
+
+    const setupObserver = () => {
+      if (observer) {
+        observer.disconnect();
+        observer = undefined;
+      }
+
+      isVisible = false;
+
+      if (!compactCardQuery.matches || typeof IntersectionObserver === 'undefined') {
+        syncPlayback();
+        return;
+      }
+
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.35;
+          syncPlayback();
+        },
+        { threshold: [0, 0.35, 0.65] },
+      );
+
+      observer.observe(card);
+    };
+
+    const handleVisibilityChange = () => {
+      syncPlayback();
+    };
+
+    setupObserver();
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    if (typeof compactCardQuery.addEventListener === 'function') {
+      compactCardQuery.addEventListener('change', setupObserver);
+    } else {
+      compactCardQuery.addListener(setupObserver);
+    }
+
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+
+      if (typeof compactCardQuery.removeEventListener === 'function') {
+        compactCardQuery.removeEventListener('change', setupObserver);
+      } else {
+        compactCardQuery.removeListener(setupObserver);
+      }
+
+      video.pause();
+    };
+  }, [hasVideo]);
 
   const handleMouseEnter = () => {
     if (!hasVideo || !canPlayVideoOnHover()) {
@@ -117,11 +231,21 @@ function ProjectCard({ item }) {
     video.pause();
   };
 
+  const handleCardClick = () => {
+    if (!canToggleMobileDetails()) {
+      return;
+    }
+
+    onToggleDetails(item.id);
+  };
+
   return (
     <article
-      className={`projectCards__card${hasVideo ? ' projectCards__card--video' : ''}${item.comingSoon ? ' projectCards__card--soon' : ''}`}
+      ref={cardRef}
+      className={`projectCards__card${hasVideo ? ' projectCards__card--video' : ''}${detailsOpen ? ' projectCards__card--details-open' : ''}${item.comingSoon ? ' projectCards__card--soon' : ''}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleCardClick}
     >
       <div className="projectCards__image-wrap">
         <CaseMedia item={item} videoRef={videoRef} />
@@ -159,7 +283,7 @@ function ProjectCard({ item }) {
         )}
       </div>
 
-      <div className="projectCards__body">
+      <div className="projectCards__body" onClick={(event) => event.stopPropagation()}>
         <ul className="projectCards__tags">
           {item.tags.map((tag) => (
             <li key={tag} className="projectCards__tag">{tag}</li>
@@ -198,6 +322,30 @@ function ProjectCard({ item }) {
 
 function ProjectCards() {
   const swiperRef = useRef(null);
+  const [swiperInstance, setSwiperInstance] = useState(null);
+  const [activeCardId, setActiveCardId] = useState(null);
+
+  useEffect(() => {
+    if (!swiperInstance?.autoplay) {
+      return;
+    }
+
+    const shouldPauseAutoplay = activeCardId
+      && typeof window !== 'undefined'
+      && typeof window.matchMedia === 'function'
+      && window.matchMedia(COMPACT_CARD_QUERY).matches;
+
+    if (shouldPauseAutoplay) {
+      swiperInstance.autoplay.stop();
+      return;
+    }
+
+    swiperInstance.autoplay.start();
+  }, [activeCardId, swiperInstance]);
+
+  const handleToggleDetails = (cardId) => {
+    setActiveCardId((currentCardId) => (currentCardId === cardId ? null : cardId));
+  };
 
   return (
     <div className="projectCards">
@@ -224,19 +372,24 @@ function ProjectCards() {
           }}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
+            setSwiperInstance(swiper);
           }}
           breakpoints={{
-            600: {
+            900: {
               slidesPerView: 2,
             },
-            1024: {
+            1200: {
               slidesPerView: 3,
             },
           }}
         >
           {projectCardData.map((item) => (
             <SwiperSlide key={item.id} className="projectCards__slide">
-              <ProjectCard item={item} />
+              <ProjectCard
+                item={item}
+                activeCardId={activeCardId}
+                onToggleDetails={handleToggleDetails}
+              />
             </SwiperSlide>
           ))}
         </Swiper>

@@ -22,7 +22,11 @@
   }
 
   &--opacity {
-    background: rgba(11, 18, 32, 0.98);
+    background: rgba(7, 13, 24, 0.98);
+    border-bottom-color: rgba(34, 211, 238, 0.2);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.05),
+      0 10px 34px rgba(0, 0, 0, 0.38);
   }
 
   &--scrolled {
@@ -32,23 +36,5 @@
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.05),
       0 8px 32px rgba(0, 0, 0, 0.35);
-  }
-
-  &__overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 101;
-    background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(4px);
-    animation: headerOverlayIn var(--duration-interactive) var(--ease-out-expo);
-  }
-}
-
-@keyframes headerOverlayIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
   }
 }
