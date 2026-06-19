@@ -1,0 +1,27 @@
+{
+  "brandName": "Artemiev Eugeniu",
+  "buttons": {
+    "discuss": "Discută proiectul",
+    "viewCases": "Vezi proiectele",
+    "send": "Trimite",
+    "sending": "Se trimite..."
+  },
+  "footer": {
+    "tagline": "Conținut, publicitate și dezvoltare web pentru afaceri",
+    "rights": "Toate drepturile rezervate."
+  },
+  "errors": {
+    "generic": "Mesajul nu a putut fi trimis. Încercați mai târziu.",
+    "required": "Completați câmpurile obligatorii."
+  },
+  "success": {
+    "formSent": "Mesaj trimis!"
+  },
+  "aria": {
+    "scrollTop": "Sus",
+    "pageNav": "Navigare pe pagină",
+    "languageSwitcher": "Selectarea limbii",
+    "openMenu": "Deschide meniul",
+    "closeMenu": "Închide meniul"
+  }
+}

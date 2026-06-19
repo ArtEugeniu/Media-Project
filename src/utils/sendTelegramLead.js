@@ -1,13 +1,17 @@
+import i18n from '../i18n';
+
 const TELEGRAM_API = 'https://api.telegram.org/bot';
 
 function formatLeadMessage({ name, contact, service, message }) {
+  const t = (key) => i18n.t(key, { ns: 'contact' });
+
   return [
-    'Новая заявка с сайта',
+    t('telegram.leadTitle'),
     '',
-    `Имя: ${name}`,
-    `Контакт: ${contact}`,
-    `Услуга: ${service}`,
-    `Сообщение: ${message}`,
+    `${t('telegram.name')}: ${name}`,
+    `${t('telegram.contact')}: ${contact}`,
+    `${t('telegram.service')}: ${service}`,
+    `${t('telegram.message')}: ${message}`,
   ].join('\n');
 }
 
@@ -16,9 +20,7 @@ export async function sendTelegramLead(formData) {
   const chatId = process.env.REACT_APP_TELEGRAM_CHAT_ID;
 
   if (!botToken || !chatId) {
-    throw new Error(
-      'Telegram не настроен. Укажите REACT_APP_TELEGRAM_BOT_TOKEN и REACT_APP_TELEGRAM_CHAT_ID в .env'
-    );
+    throw new Error(i18n.t('contact:feedback.telegramNotConfigured'));
   }
 
   const response = await fetch(`${TELEGRAM_API}${botToken}/sendMessage`, {
@@ -33,7 +35,7 @@ export async function sendTelegramLead(formData) {
   const data = await response.json();
 
   if (!response.ok || !data.ok) {
-    throw new Error(data.description || 'Не удалось отправить заявку');
+    throw new Error(data.description || i18n.t('contact:feedback.sendFailed'));
   }
 
   return data;

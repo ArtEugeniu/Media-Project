@@ -1,0 +1,46 @@
+{
+  "badge": "LUCRĂRILE NOASTRE",
+  "title": "Cum ajutăm afacerile să crească",
+  "description": "Conținut, publicitate și dezvoltare web pentru rezolvarea problemelor reale de business.",
+  "viewCase": "Vezi cazul",
+  "comingSoonOverlay": "În curând",
+  "comingSoonLabel": "Cazul va apărea în curând",
+  "cases": {
+    "1": {
+      "title": "Conținut pentru companie de curățenie",
+      "description": "Filmare și montaj de conținut pentru rețelele sociale ale unei companii de curățenie.",
+      "type": "Caz de conținut",
+      "tags": ["Conținut", "Producție video"]
+    },
+    "2": {
+      "title": "Sistem de bilete pentru teatru",
+      "description": "Am ajutat teatrul să transfere programul și vânzarea biletelor într-un format online convenabil pentru spectatori.",
+      "type": "Caz de site",
+      "tags": ["Dezvoltare web", "SEO"]
+    },
+    "3": {
+      "title": "Site pentru serviciu de taxi",
+      "description": "Am creat un site care ajută clienții să găsească rapid serviciul și să contacteze compania de taxi.",
+      "type": "Caz de site",
+      "tags": ["Publicitate + Site", "SEO"]
+    },
+    "4": {
+      "title": "Magazin online de îmbrăcăminte",
+      "description": "Am construit o vitrină de produse cu catalog ușor de folosit, pentru ca cumpărătorii să aleagă și să comande mai simplu.",
+      "type": "Caz de site",
+      "tags": ["Dezvoltare web", "Branding"]
+    },
+    "5": {
+      "title": "Promovarea unui business local",
+      "description": "Am pregătit o pagină de destinație pentru cereri și o prezentare clară a serviciului pe primul ecran.",
+      "type": "Caz de site",
+      "tags": ["Conținut + Site", "Publicitate"]
+    },
+    "6": {
+      "title": "Meniu online pentru cafenea",
+      "description": "Am realizat un meniu digital, astfel încât oaspeții să vadă rapid preparatele actuale prin cod QR.",
+      "type": "Caz de site",
+      "tags": ["Conținut + Site"]
+    }
+  }
+}

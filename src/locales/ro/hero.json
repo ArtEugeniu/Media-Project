@@ -1,0 +1,28 @@
+{
+  "title": {
+    "line1": "Conținutul atrage.",
+    "line2": "Publicitatea aduce.",
+    "line3": "Site-ul",
+    "line3Accent": "vinde."
+  },
+  "subtitle": "Construim un sistem complet de atragere a clienților. O singură echipă în loc de trei contractori.",
+  "capabilities": {
+    "content": {
+      "tag": "Conținut",
+      "desc": "Atragem atenția"
+    },
+    "traffic": {
+      "tag": "Targetare",
+      "desc": "Aducem audiența"
+    },
+    "conversion": {
+      "tag": "Site web",
+      "desc": "Transformăm în clienți"
+    }
+  },
+  "servicesStrip": {
+    "strategy": "Strategie și creativ",
+    "traffic": "Trafic și performanță",
+    "web": "Dezvoltare web și analitică"
+  }
+}

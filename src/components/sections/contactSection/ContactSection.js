@@ -1,30 +1,33 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import './ContactSection.scss';
 import {
   CONTACT_EMAIL,
   CONTACT_PHONE,
   CONTACT_PHONE_HREF,
-  SERVICE_OPTIONS,
   TELEGRAM_HANDLE,
   TELEGRAM_URL,
 } from '../../../config/site';
 import { sendTelegramLead } from '../../../utils/sendTelegramLead';
 
+const SERVICE_KEYS = ['content', 'advertising', 'web', 'fullCycle', 'other'];
+
 const INITIAL_FORM = {
   name: '',
   contact: '',
-  service: SERVICE_OPTIONS[0],
+  service: SERVICE_KEYS[0],
   message: '',
 };
 
-const QUICK_CONTACTS = [
+const QUICK_CONTACT_CONFIG = [
   {
     id: 'telegram',
     label: 'Telegram',
+    valueKey: null,
     value: TELEGRAM_HANDLE,
     href: TELEGRAM_URL,
-    hint: 'Самый быстрый способ связаться',
+    hintKey: 'quickContact.telegram.hint',
     accent: 'cyan',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -39,9 +42,10 @@ const QUICK_CONTACTS = [
   {
     id: 'email',
     label: 'Email',
+    valueKey: null,
     value: CONTACT_EMAIL,
     href: `mailto:${CONTACT_EMAIL}`,
-    hint: 'Для подробных запросов',
+    hintKey: 'quickContact.email.hint',
     accent: 'blue',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -54,10 +58,11 @@ const QUICK_CONTACTS = [
   },
   {
     id: 'phone',
-    label: 'Телефон',
+    labelKey: 'quickContact.phone.label',
+    valueKey: null,
     value: CONTACT_PHONE,
     href: CONTACT_PHONE_HREF,
-    hint: 'Молдова · WhatsApp',
+    hintKey: 'quickContact.phone.hint',
     accent: 'violet',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -87,6 +92,7 @@ const blockVariants = {
 };
 
 function ContactSection() {
+  const { t } = useTranslation('contact');
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle');
@@ -107,15 +113,15 @@ function ContactSection() {
     const nextErrors = {};
 
     if (!form.name.trim()) {
-      nextErrors.name = 'Укажите имя';
+      nextErrors.name = t('validation.name');
     }
 
     if (!form.contact.trim()) {
-      nextErrors.contact = 'Укажите Telegram или телефон';
+      nextErrors.contact = t('validation.contact');
     }
 
     if (!form.message.trim()) {
-      nextErrors.message = 'Опишите задачу';
+      nextErrors.message = t('validation.message');
     }
 
     setErrors(nextErrors);
@@ -136,19 +142,17 @@ function ContactSection() {
       await sendTelegramLead({
         name: form.name.trim(),
         contact: form.contact.trim(),
-        service: form.service,
+        service: t(`services.${form.service}`),
         message: form.message.trim(),
       });
 
       setStatus('success');
-      setFeedback('Заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+      setFeedback(t('feedback.success'));
       setForm(INITIAL_FORM);
       setErrors({});
     } catch (error) {
       setStatus('error');
-      setFeedback(
-        error.message || 'Не удалось отправить заявку. Попробуйте ещё раз или напишите в Telegram.'
-      );
+      setFeedback(error.message || t('feedback.error'));
     }
   };
 
@@ -162,14 +166,13 @@ function ContactSection() {
           viewport={{ once: true, margin: '-80px' }}
         >
           <motion.div className="contact__heading" variants={headingVariants}>
-            <span className="contact__badge">Контакт</span>
+            <span className="contact__badge">{t('badge')}</span>
             <h2 className="contact__title section-title">
-              Обсудим{' '}
-              <span className="contact__title-accent">ваш проект</span>
+              {t('title')}{' '}
+              <span className="contact__title-accent">{t('titleAccent')}</span>
             </h2>
             <p className="contact__description">
-              Расскажите, что нужно вашему бизнесу: контент, реклама, сайт или полный цикл.
-              Мы изучим задачу и свяжемся с вами.
+              {t('description')}
             </p>
           </motion.div>
 
@@ -181,14 +184,14 @@ function ContactSection() {
           >
             <div className="contact__form-grid">
               <label className="contact__field">
-                <span className="contact__field-label">Имя</span>
+                <span className="contact__field-label">{t('form.name.label')}</span>
                 <input
                   className={`contact__input${errors.name ? ' contact__input--error' : ''}`}
                   type="text"
                   name="name"
                   value={form.name}
                   onChange={updateField('name')}
-                  placeholder="Ваше имя"
+                  placeholder={t('form.name.placeholder')}
                   autoComplete="name"
                   disabled={status === 'loading'}
                 />
@@ -198,14 +201,14 @@ function ContactSection() {
               </label>
 
               <label className="contact__field">
-                <span className="contact__field-label">Контакт</span>
+                <span className="contact__field-label">{t('form.contact.label')}</span>
                 <input
                   className={`contact__input${errors.contact ? ' contact__input--error' : ''}`}
                   type="text"
                   name="contact"
                   value={form.contact}
                   onChange={updateField('contact')}
-                  placeholder="Telegram или телефон"
+                  placeholder={t('form.contact.placeholder')}
                   autoComplete="tel"
                   disabled={status === 'loading'}
                 />
@@ -216,7 +219,7 @@ function ContactSection() {
             </div>
 
             <label className="contact__field">
-              <span className="contact__field-label">Услуга</span>
+              <span className="contact__field-label">{t('form.service.label')}</span>
               <div className="contact__select-wrap">
                 <select
                   className="contact__select"
@@ -225,21 +228,23 @@ function ContactSection() {
                   onChange={updateField('service')}
                   disabled={status === 'loading'}
                 >
-                  {SERVICE_OPTIONS.map((option) => (
-                    <option key={option} value={option}>{option}</option>
+                  {SERVICE_KEYS.map((serviceKey) => (
+                    <option key={serviceKey} value={serviceKey}>
+                      {t(`services.${serviceKey}`)}
+                    </option>
                   ))}
                 </select>
               </div>
             </label>
 
             <label className="contact__field">
-              <span className="contact__field-label">Сообщение</span>
+              <span className="contact__field-label">{t('form.message.label')}</span>
               <textarea
                 className={`contact__textarea${errors.message ? ' contact__input--error' : ''}`}
                 name="message"
                 value={form.message}
                 onChange={updateField('message')}
-                placeholder="Коротко опишите задачу"
+                placeholder={t('form.message.placeholder')}
                 rows={5}
                 disabled={status === 'loading'}
               />
@@ -254,7 +259,7 @@ function ContactSection() {
                 type="submit"
                 disabled={status === 'loading'}
               >
-                {status === 'loading' ? 'Отправляем...' : 'Отправить заявку'}
+                {status === 'loading' ? t('form.submitting') : t('form.submit')}
               </button>
 
               {feedback && (
@@ -269,9 +274,9 @@ function ContactSection() {
           </motion.form>
 
           <motion.div className="contact__quick" variants={blockVariants}>
-            <p className="contact__quick-label">Или свяжитесь напрямую</p>
+            <p className="contact__quick-label">{t('quickContact.label')}</p>
             <div className="contact__grid">
-              {QUICK_CONTACTS.map((item) => (
+              {QUICK_CONTACT_CONFIG.map((item) => (
                 <a
                   key={item.id}
                   className={`contact__card contact__card--${item.accent}`}
@@ -281,9 +286,11 @@ function ContactSection() {
                 >
                   <div className="contact__card-icon">{item.icon}</div>
                   <div className="contact__card-body">
-                    <span className="contact__card-label">{item.label}</span>
+                    <span className="contact__card-label">
+                      {item.labelKey ? t(item.labelKey) : item.label}
+                    </span>
                     <span className="contact__card-value">{item.value}</span>
-                    <span className="contact__card-hint">{item.hint}</span>
+                    <span className="contact__card-hint">{t(item.hintKey)}</span>
                   </div>
                   <div className="contact__card-arrow" aria-hidden="true">
                     <svg viewBox="0 0 16 16" fill="none">

@@ -1,0 +1,29 @@
+{
+  "badge": "How we work",
+  "title": "From idea to",
+  "titleAccent": "clients",
+  "description": "We handle content, advertising, and web development so you can focus on your business.",
+  "note": "After launch we keep supporting the project and help scale the results.",
+  "steps": {
+    "1": {
+      "title": "Dive into the task",
+      "description": "We study your business, goals, audience, and current situation to define what growth requires."
+    },
+    "2": {
+      "title": "Build the strategy",
+      "description": "We shape an action plan and choose the right mix of content, ads, and web tools."
+    },
+    "3": {
+      "title": "Create the assets",
+      "description": "We produce content, prepare ad creatives, and develop the website or landing page."
+    },
+    "4": {
+      "title": "Launch promotion",
+      "description": "We publish content, launch ad campaigns, and set up client acquisition channels."
+    },
+    "5": {
+      "title": "Analyze and improve",
+      "description": "We track results, collect data, and refine the system for further growth."
+    }
+  }
+}

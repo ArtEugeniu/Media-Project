@@ -1,0 +1,46 @@
+{
+  "badge": "OUR WORK",
+  "title": "How we help businesses grow",
+  "description": "Content, advertising, and web development for real business challenges.",
+  "viewCase": "View case study",
+  "comingSoonOverlay": "Coming soon",
+  "comingSoonLabel": "Case study coming soon",
+  "cases": {
+    "1": {
+      "title": "Content for a cleaning company",
+      "description": "Filming and editing social media content for a cleaning company.",
+      "type": "Content case",
+      "tags": ["Content", "Video production"]
+    },
+    "2": {
+      "title": "Theatre ticketing system",
+      "description": "We helped the theatre move schedules and ticket sales into a convenient online format for audiences.",
+      "type": "Website case",
+      "tags": ["Web development", "SEO"]
+    },
+    "3": {
+      "title": "Taxi service website",
+      "description": "We built a website that helps customers quickly find the service and contact the taxi company.",
+      "type": "Website case",
+      "tags": ["Ads + Website", "SEO"]
+    },
+    "4": {
+      "title": "Clothing e-commerce store",
+      "description": "We built a product showcase with an easy catalog so shoppers can browse and order with less friction.",
+      "type": "Website case",
+      "tags": ["Web development", "Branding"]
+    },
+    "5": {
+      "title": "Local business promotion",
+      "description": "We prepared a landing page for leads and a clear service presentation above the fold.",
+      "type": "Website case",
+      "tags": ["Content + Website", "Advertising"]
+    },
+    "6": {
+      "title": "Online menu for a café",
+      "description": "We created a digital menu so guests can quickly view current dishes via QR code.",
+      "type": "Website case",
+      "tags": ["Content + Website"]
+    }
+  }
+}

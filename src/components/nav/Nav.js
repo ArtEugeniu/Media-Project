@@ -1,17 +1,19 @@
 import './Nav.scss';
 import { useRef, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { NAV_ITEMS } from '../../config/navigation';
-import { DEFAULT_LANG, SITE_NAME } from '../../config/site';
+import LanguageSwitcher from '../languageSwitcher/LanguageSwitcher';
 import {
   MOBILE_MENU_SCROLL_DELAY_MS,
   scrollToSection,
 } from '../../utils/scrollOffset';
 
 function Nav({ headerHeight, isBurgerOpen, toggleBurger, burgerButton }) {
+  const { t } = useTranslation(['nav', 'common']);
   const burgerMenu = useRef();
   const [activeSection, setActiveSection] = useState('home');
 
-  const getLabel = (item) => item.label[DEFAULT_LANG] ?? item.label.ru;
+  const getLabel = (section) => t(section, { ns: 'nav' });
   const getLinkClassName = (section) => (
     `nav__link${section === 'contact' ? ' nav__link--cta' : ''}${activeSection === section ? ' nav__link--active' : ''}`
   );
@@ -162,9 +164,9 @@ function Nav({ headerHeight, isBurgerOpen, toggleBurger, burgerButton }) {
       <button
         className="nav__brand"
         onClick={scrollToTop}
-        aria-label="Наверх"
+        aria-label={t('aria.scrollTop', { ns: 'common' })}
       >
-        <span className="nav__brand-name">{SITE_NAME[DEFAULT_LANG]}</span>
+        <span className="nav__brand-name">{t('brandName', { ns: 'common' })}</span>
       </button>
 
       <div
@@ -180,7 +182,7 @@ function Nav({ headerHeight, isBurgerOpen, toggleBurger, burgerButton }) {
                   className={getLinkClassName(item.section)}
                   onClick={scrollToTop}
                 >
-                  {getLabel(item)}
+                  {getLabel(item.section)}
                 </button>
               ) : (
                 <button
@@ -188,12 +190,13 @@ function Nav({ headerHeight, isBurgerOpen, toggleBurger, burgerButton }) {
                   className={getLinkClassName(item.section)}
                   onClick={(event) => handleSectionNav(item.section, event)}
                 >
-                  {getLabel(item)}
+                  {getLabel(item.section)}
                 </button>
               )}
             </li>
           ))}
         </ul>
+        <LanguageSwitcher variant="panel" />
       </div>
     </nav>
   );

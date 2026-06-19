@@ -1,18 +1,20 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import './AboutSection.scss';
 import myPhoto from '../../../assets/images/my-photo.jpg';
 
-const PERKS = [
+const PERK_CONFIG = [
   {
+    id: 'content',
     icon: (
       <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <rect x="3" y="5" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.6" />
         <path d="M8 5l4 5-4 5V5z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
       </svg>
     ),
-    label: 'Контент и видеопродакшн',
   },
   {
+    id: 'advertising',
     icon: (
       <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.6" />
@@ -20,25 +22,24 @@ const PERKS = [
         <path d="M10 3v2M10 15v2M3 10h2M15 10h2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
       </svg>
     ),
-    label: 'Таргетированная реклама',
   },
   {
+    id: 'web',
     icon: (
       <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <path d="M4 4h5v5H4zM11 4h5v5h-5zM4 11h5v5H4zM11 11h5v5h-5z"
           stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    label: 'Веб-разработка и лендинги',
   },
   {
+    id: 'communication',
     icon: (
       <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <path d="M4 5h12v8H4z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
         <path d="M7 13l2-2 2 2 3-3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    label: 'Единая коммуникация по проекту',
   },
 ];
 
@@ -63,11 +64,14 @@ const perkVariants = {
 };
 
 function AboutSection() {
+  const { t } = useTranslation('about');
+  const bioParagraphs = t('bio', { returnObjects: true });
+
   return (
     <section className="about" id="about">
       <div className="container">
         <div className="about__badge-wrap">
-          <span className="about__badge">О нас</span>
+          <span className="about__badge">{t('badge')}</span>
         </div>
 
         <motion.div
@@ -81,42 +85,32 @@ function AboutSection() {
             <img
               className="about__photo"
               src={myPhoto}
-              alt="Представитель команды агентства"
+              alt={t('photoAlt')}
               loading="lazy"
             />
           </motion.div>
 
           <motion.div className="about__content" variants={rightVariants}>
             <h2 className="about__title section-title">
-              Одна команда вместо{' '}
-              <span className="about__title-accent">трёх подрядчиков</span>
+              {t('title')}{' '}
+              <span className="about__title-accent">{t('titleAccent')}</span>
             </h2>
 
-            <p className="about__bio">
-              Мы объединяем контент, рекламу и веб-разработку в одну систему
-              привлечения клиентов.
-            </p>
-
-            <p className="about__bio">
-              Вместо поиска нескольких специалистов вы работаете с одной командой,
-              которая сопровождает проект от идеи до запуска и дальнейшего развития.
-            </p>
-
-            <p className="about__bio">
-              Работаем с малым и средним бизнесом и помогаем выстраивать понятную
-              систему привлечения клиентов через контент, рекламу и современные
-              веб-решения.
-            </p>
+            {Array.isArray(bioParagraphs) && bioParagraphs.map((paragraph) => (
+              <p key={paragraph} className="about__bio">
+                {paragraph}
+              </p>
+            ))}
 
             <ul className="about__perks">
-              {PERKS.map((perk) => (
+              {PERK_CONFIG.map((perk) => (
                 <motion.li
-                  key={perk.label}
+                  key={perk.id}
                   className="about__perk"
                   variants={perkVariants}
                 >
                   <span className="about__perk-icon">{perk.icon}</span>
-                  <span className="about__perk-label">{perk.label}</span>
+                  <span className="about__perk-label">{t(`perks.${perk.id}`)}</span>
                 </motion.li>
               ))}
             </ul>

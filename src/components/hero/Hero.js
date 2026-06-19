@@ -6,6 +6,7 @@ import {
   useTransform,
 } from 'framer-motion';
 import { Link } from 'react-scroll';
+import { useTranslation } from 'react-i18next';
 import './Hero.scss';
 import { getSectionScrollOffset } from '../../utils/scrollOffset';
 
@@ -150,92 +151,91 @@ const RIBBON_PATH =
 
 const PULSE_DURATION = '6.5s';
 
-const CAPABILITIES = [
-  {
-    id: 'content',
-    color: 'cyan',
-    tag: 'Content',
-    desc: 'Привлекаем внимание',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect x="3" y="3" width="18" height="13" rx="2"
-          stroke="currentColor" strokeWidth="1.6" />
-        <circle cx="7.5" cy="8" r="1.5" stroke="currentColor" strokeWidth="1.4" />
-        <path d="M3 12l4-3.5 4 3.5 3-2.5 7 5.5"
-          stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M9 20h6M12 16v4"
-          stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    id: 'traffic',
-    color: 'blue',
-    tag: 'Targeting',
-    desc: 'Приводим аудиторию',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M22 12h-4l-3 9L9 3l-3 9H2"
-          stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
-  {
-    id: 'conversion',
-    color: 'violet',
-    tag: 'Web Site',
-    desc: 'Превращаем в клиентов',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"
-          stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M3 6h18M16 10a4 4 0 01-8 0"
-          stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
+const CAPABILITY_META = [
+  { id: 'content', color: 'cyan' },
+  { id: 'traffic', color: 'blue' },
+  { id: 'conversion', color: 'violet' },
 ];
 
-const SERVICES = [
-  {
-    label: 'Стратегия и креатив',
-    icon: (
-      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <path d="M4.5 5L2 8l2.5 3M11.5 5L14 8l-2.5 3M9 3.5l-2 9"
-          stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Трафик и перформанс',
-    icon: (
-      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <rect x="1.5" y="2" width="13" height="9" rx="1.2"
-          stroke="currentColor" strokeWidth="1.3" />
-        <circle cx="5" cy="5.5" r="1.2" stroke="currentColor" strokeWidth="1.2" />
-        <path d="M1.5 8.5l3-2.5 3 2.5 2-1.5 4 3.5"
-          stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M6 14h4M8 11v3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Веб-разработка и аналитика',
-    icon: (
-      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <path d="M8 3a5 5 0 100 10A5 5 0 008 3zM8 8h3.5"
-          stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-        <path d="M8 5.5v5"
-          stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-      </svg>
-    ),
-  },
+const CAPABILITY_ICONS = {
+  content: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="13" rx="2"
+        stroke="currentColor" strokeWidth="1.6" />
+      <circle cx="7.5" cy="8" r="1.5" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M3 12l4-3.5 4 3.5 3-2.5 7 5.5"
+        stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9 20h6M12 16v4"
+        stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  ),
+  traffic: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M22 12h-4l-3 9L9 3l-3 9H2"
+        stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  conversion: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"
+        stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M3 6h18M16 10a4 4 0 01-8 0"
+        stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+};
+
+const SERVICE_STRIP_META = [
+  { id: 'strategy' },
+  { id: 'traffic' },
+  { id: 'web' },
 ];
+
+const SERVICE_STRIP_ICONS = {
+  strategy: (
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M4.5 5L2 8l2.5 3M11.5 5L14 8l-2.5 3M9 3.5l-2 9"
+        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  traffic: (
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <rect x="1.5" y="2" width="13" height="9" rx="1.2"
+        stroke="currentColor" strokeWidth="1.3" />
+      <circle cx="5" cy="5.5" r="1.2" stroke="currentColor" strokeWidth="1.2" />
+      <path d="M1.5 8.5l3-2.5 3 2.5 2-1.5 4 3.5"
+        stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M6 14h4M8 11v3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+    </svg>
+  ),
+  web: (
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M8 3a5 5 0 100 10A5 5 0 008 3zM8 8h3.5"
+        stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+      <path d="M8 5.5v5"
+        stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+    </svg>
+  ),
+};
 
 function Hero() {
+  const { t } = useTranslation(['hero', 'common']);
   const heroRef = useRef(null);
   const isMobile = useMobileLayout();
   const sectionScrollOffset = getSectionScrollOffset();
+
+  const capabilities = CAPABILITY_META.map((item) => ({
+    ...item,
+    tag: t(`capabilities.${item.id}.tag`),
+    desc: t(`capabilities.${item.id}.desc`),
+    icon: CAPABILITY_ICONS[item.id],
+  }));
+
+  const servicesStrip = SERVICE_STRIP_META.map((item) => ({
+    id: item.id,
+    label: t(`servicesStrip.${item.id}`),
+    icon: SERVICE_STRIP_ICONS[item.id],
+  }));
 
   return (
     <section className="hero" id="home" ref={heroRef}>
@@ -255,15 +255,14 @@ function Hero() {
             animate="visible"
           >
             <h1 className="hero__title">
-              Контент привлекает.<br />
-              Реклама приводит.<br />
-              Сайт{' '}
-              <span className="hero__title-accent">продаёт.</span>
+              {t('title.line1')}<br />
+              {t('title.line2')}<br />
+              {t('title.line3')}{' '}
+              <span className="hero__title-accent">{t('title.line3Accent')}</span>
             </h1>
 
             <motion.p className="hero__subtitle" variants={itemVariants}>
-              Создаём систему привлечения клиентов под ключ.
-              Одна команда вместо трёх подрядчиков.
+              {t('subtitle')}
             </motion.p>
 
             <motion.div className="hero__actions" variants={itemVariants}>
@@ -275,7 +274,7 @@ function Hero() {
                 duration={800}
                 spy={false}
               >
-                Обсудить проект
+                {t('buttons.discuss', { ns: 'common' })}
                 <svg className="hero__btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path d="M3 8h10M9 4l4 4-4 4"
                     stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -289,15 +288,15 @@ function Hero() {
                 duration={800}
                 spy={false}
               >
-                Смотреть кейсы
+                {t('buttons.viewCases', { ns: 'common' })}
               </Link>
             </motion.div>
 
             <motion.div className="hero__services" variants={itemVariants}>
-              {SERVICES.map((s) => (
-                <span className="hero__service" key={s.label}>
-                  <span className="hero__service-icon">{s.icon}</span>
-                  {s.label}
+              {servicesStrip.map((service) => (
+                <span className="hero__service" key={service.id}>
+                  <span className="hero__service-icon">{service.icon}</span>
+                  {service.label}
                 </span>
               ))}
             </motion.div>
@@ -368,7 +367,7 @@ function Hero() {
             </svg>
 
             <div className="hero__stack">
-              {CAPABILITIES.map((cap) => (
+              {capabilities.map((cap) => (
                 <motion.div
                   key={cap.id}
                   className={`hero__row hero__row--${cap.color}`}

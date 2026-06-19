@@ -1,0 +1,63 @@
+{
+  "badge": "Контакт",
+  "title": "Обсудим",
+  "titleAccent": "ваш проект",
+  "description": "Расскажите, что нужно вашему бизнесу: контент, реклама, сайт или полный цикл. Мы изучим задачу и свяжемся с вами.",
+  "form": {
+    "name": {
+      "label": "Имя",
+      "placeholder": "Ваше имя"
+    },
+    "contact": {
+      "label": "Контакт",
+      "placeholder": "Telegram или телефон"
+    },
+    "service": {
+      "label": "Услуга"
+    },
+    "message": {
+      "label": "Сообщение",
+      "placeholder": "Коротко опишите задачу"
+    },
+    "submit": "Отправить заявку",
+    "submitting": "Отправляем..."
+  },
+  "validation": {
+    "name": "Укажите имя",
+    "contact": "Укажите Telegram или телефон",
+    "message": "Опишите задачу"
+  },
+  "feedback": {
+    "success": "Заявка отправлена. Мы свяжемся с вами в ближайшее время.",
+    "error": "Не удалось отправить заявку. Попробуйте ещё раз или напишите в Telegram.",
+    "telegramNotConfigured": "Telegram не настроен. Укажите REACT_APP_TELEGRAM_BOT_TOKEN и REACT_APP_TELEGRAM_CHAT_ID в .env",
+    "sendFailed": "Не удалось отправить заявку"
+  },
+  "quickContact": {
+    "label": "Или свяжитесь напрямую",
+    "telegram": {
+      "hint": "Самый быстрый способ связаться"
+    },
+    "email": {
+      "hint": "Для подробных запросов"
+    },
+    "phone": {
+      "label": "Телефон",
+      "hint": "Молдова · WhatsApp"
+    }
+  },
+  "services": {
+    "content": "Контент",
+    "advertising": "Реклама",
+    "web": "Веб-разработка",
+    "fullCycle": "Полный цикл",
+    "other": "Другое"
+  },
+  "telegram": {
+    "leadTitle": "Новая заявка с сайта",
+    "name": "Имя",
+    "contact": "Контакт",
+    "service": "Услуга",
+    "message": "Сообщение"
+  }
+}

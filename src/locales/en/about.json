@@ -1,0 +1,17 @@
+{
+  "badge": "About us",
+  "title": "One team instead of",
+  "titleAccent": "three vendors",
+  "bio": [
+    "We combine content, advertising, and web development into one client acquisition system.",
+    "Instead of hiring multiple specialists, you work with one team that supports the project from idea to launch and beyond.",
+    "We work with small and medium businesses and help build a clear acquisition system through content, ads, and modern web solutions."
+  ],
+  "photoAlt": "Agency team representative",
+  "perks": {
+    "content": "Content and video production",
+    "advertising": "Targeted advertising",
+    "web": "Web development and landing pages",
+    "communication": "Single point of contact for the project"
+  }
+}

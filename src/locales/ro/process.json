@@ -1,0 +1,29 @@
+{
+  "badge": "Cum lucrăm",
+  "title": "De la idee la",
+  "titleAccent": "clienți",
+  "description": "Ne ocupăm de conținut, publicitate și dezvoltare web, ca tu să te concentrezi pe afacere.",
+  "note": "După lansare continuăm suportul proiectului și ajutăm la scalarea rezultatelor.",
+  "steps": {
+    "1": {
+      "title": "Înțelegem sarcina",
+      "description": "Studiem afacerea, obiectivele, audiența și situația actuală. Definim ce este necesar pentru creștere."
+    },
+    "2": {
+      "title": "Construim strategia",
+      "description": "Formăm un plan de acțiune și alegem combinația optimă de conținut, publicitate și instrumente web."
+    },
+    "3": {
+      "title": "Creăm materialele",
+      "description": "Filmăm conținut, pregătim creative publicitare și dezvoltăm site-ul sau landing page-ul."
+    },
+    "4": {
+      "title": "Lansăm promovarea",
+      "description": "Publicăm conținut, lansăm campanii publicitare și configurăm canalele de atragere a clienților."
+    },
+    "5": {
+      "title": "Analizăm și îmbunătățim",
+      "description": "Monitorizăm rezultatele, colectăm date și optimizăm sistemul pentru creștere ulterioară."
+    }
+  }
+}

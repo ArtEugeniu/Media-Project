@@ -1,0 +1,63 @@
+{
+  "badge": "Contact",
+  "title": "Să discutăm",
+  "titleAccent": "proiectul tău",
+  "description": "Spune-ne ce are nevoie afacerea ta: conținut, publicitate, site sau ciclu complet. Vom analiza cererea și te vom contacta.",
+  "form": {
+    "name": {
+      "label": "Nume",
+      "placeholder": "Numele tău"
+    },
+    "contact": {
+      "label": "Contact",
+      "placeholder": "Telegram sau telefon"
+    },
+    "service": {
+      "label": "Serviciu"
+    },
+    "message": {
+      "label": "Mesaj",
+      "placeholder": "Descrie pe scurt sarcina"
+    },
+    "submit": "Trimite cererea",
+    "submitting": "Se trimite..."
+  },
+  "validation": {
+    "name": "Indicați numele",
+    "contact": "Indicați Telegram sau telefonul",
+    "message": "Descrieți sarcina"
+  },
+  "feedback": {
+    "success": "Cererea a fost trimisă. Vă vom contacta în curând.",
+    "error": "Nu s-a putut trimite cererea. Încercați din nou sau scrieți pe Telegram.",
+    "telegramNotConfigured": "Telegram nu este configurat. Setați REACT_APP_TELEGRAM_BOT_TOKEN și REACT_APP_TELEGRAM_CHAT_ID în .env",
+    "sendFailed": "Nu s-a putut trimite cererea"
+  },
+  "quickContact": {
+    "label": "Sau contactați-ne direct",
+    "telegram": {
+      "hint": "Cea mai rapidă modalitate de contact"
+    },
+    "email": {
+      "hint": "Pentru solicitări detaliate"
+    },
+    "phone": {
+      "label": "Telefon",
+      "hint": "Moldova · WhatsApp"
+    }
+  },
+  "services": {
+    "content": "Conținut",
+    "advertising": "Publicitate",
+    "web": "Dezvoltare web",
+    "fullCycle": "Ciclu complet",
+    "other": "Altele"
+  },
+  "telegram": {
+    "leadTitle": "Cerere nouă de pe site",
+    "name": "Nume",
+    "contact": "Contact",
+    "service": "Serviciu",
+    "message": "Mesaj"
+  }
+}

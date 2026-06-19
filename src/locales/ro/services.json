@@ -1,0 +1,43 @@
+{
+  "badge": "SERVICIILE NOASTRE",
+  "title": "Unim conținutul, publicitatea și dezvoltarea web",
+  "description": "O singură echipă duce proiectul de la idee și creativ la lead-uri și conversii.",
+  "cards": {
+    "content-production": {
+      "label": "ATRAGEM ATENȚIA",
+      "title": "Conținut și producție",
+      "description": "Creăm conținut care prezintă afacerea ta, inspiră încredere și te diferențiază de concurență.",
+      "features": [
+        "Filmări Reels",
+        "Montaj video",
+        "Conținut pentru rețele sociale",
+        "Postări creative",
+        "Plan de conținut"
+      ]
+    },
+    "performance-marketing": {
+      "label": "ADUCEM AUDIENȚA",
+      "title": "Publicitate și promovare",
+      "description": "Configurăm campanii Meta și Google pentru a atrage publicul potrivit și a genera cereri.",
+      "features": [
+        "Meta Ads",
+        "Google Ads",
+        "Setarea audiențelor",
+        "Analitică",
+        "Optimizarea reclamelor"
+      ]
+    },
+    "web-development": {
+      "label": "TRANSFORMĂM ÎN CLIENȚI",
+      "title": "Dezvoltare web",
+      "description": "Construim site-uri și landing page-uri care transformă vizitatorii în clienți.",
+      "features": [
+        "Landing page-uri",
+        "Site-uri corporate",
+        "Meniuri online",
+        "Dezvoltare adaptivă",
+        "Optimizare SEO de bază"
+      ]
+    }
+  }
+}

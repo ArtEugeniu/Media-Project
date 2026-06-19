@@ -1,0 +1,28 @@
+{
+  "title": {
+    "line1": "Content attracts.",
+    "line2": "Ads bring traffic.",
+    "line3": "The website",
+    "line3Accent": "sells."
+  },
+  "subtitle": "We build end-to-end client acquisition systems. One team instead of three vendors.",
+  "capabilities": {
+    "content": {
+      "tag": "Content",
+      "desc": "Capture attention"
+    },
+    "traffic": {
+      "tag": "Targeting",
+      "desc": "Drive the right audience"
+    },
+    "conversion": {
+      "tag": "Website",
+      "desc": "Turn visitors into clients"
+    }
+  },
+  "servicesStrip": {
+    "strategy": "Strategy and creative",
+    "traffic": "Traffic and performance",
+    "web": "Web development and analytics"
+  }
+}

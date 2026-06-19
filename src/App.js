@@ -3,6 +3,7 @@ import './App.scss';
 import Header from "./components/header/Header";
 import Hero from './components/hero/Hero';
 import SiteBackdrop from './components/siteBackdrop/SiteBackdrop';
+import { usePageMeta } from './hooks/usePageMeta';
 
 const ServicesSection = lazy(() => import('./components/sections/servicesSection/ServicesSection'));
 const PortfolioSection = lazy(() => import('./components/sections/portfolioSection/PortfolioSectioin'));
@@ -14,6 +15,8 @@ const Footer = lazy(() => import('./components/footer/Footer'));
 function App() {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   const [showMenuOverlay, setShowMenuOverlay] = useState(false);
+
+  usePageMeta();
 
   useEffect(() => {
     if (isBurgerOpen) {

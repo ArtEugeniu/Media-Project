@@ -1,0 +1,27 @@
+{
+  "brandName": "Artemiev Eugeniu",
+  "buttons": {
+    "discuss": "Discuss project",
+    "viewCases": "View cases",
+    "send": "Send",
+    "sending": "Sending..."
+  },
+  "footer": {
+    "tagline": "Content, advertising, and web development for business",
+    "rights": "All rights reserved."
+  },
+  "errors": {
+    "generic": "Could not send the message. Please try again later.",
+    "required": "Please fill in the required fields."
+  },
+  "success": {
+    "formSent": "Message sent!"
+  },
+  "aria": {
+    "scrollTop": "Back to top",
+    "pageNav": "Page navigation",
+    "languageSwitcher": "Language selection",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  }
+}

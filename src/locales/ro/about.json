@@ -1,0 +1,17 @@
+{
+  "badge": "Despre noi",
+  "title": "O singură echipă în loc de",
+  "titleAccent": "trei contractori",
+  "bio": [
+    "Unim conținutul, publicitatea și dezvoltarea web într-un singur sistem de atragere a clienților.",
+    "În loc să cauți mai mulți specialiști, lucrezi cu o echipă care însoțește proiectul de la idee la lansare și dezvoltare ulterioară.",
+    "Lucrăm cu afaceri mici și medii și ajutăm la construirea unui sistem clar de atragere a clienților prin conținut, publicitate și soluții web moderne."
+  ],
+  "photoAlt": "Reprezentant al echipei agenției",
+  "perks": {
+    "content": "Conținut și producție video",
+    "advertising": "Publicitate targetată",
+    "web": "Dezvoltare web și landing page-uri",
+    "communication": "Comunicare unică pe proiect"
+  }
+}

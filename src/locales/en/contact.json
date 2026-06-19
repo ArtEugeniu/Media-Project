@@ -1,0 +1,63 @@
+{
+  "badge": "Contact",
+  "title": "Let's discuss",
+  "titleAccent": "your project",
+  "description": "Tell us what your business needs: content, advertising, a website, or the full cycle. We'll review your request and get back to you.",
+  "form": {
+    "name": {
+      "label": "Name",
+      "placeholder": "Your name"
+    },
+    "contact": {
+      "label": "Contact",
+      "placeholder": "Telegram or phone"
+    },
+    "service": {
+      "label": "Service"
+    },
+    "message": {
+      "label": "Message",
+      "placeholder": "Briefly describe the task"
+    },
+    "submit": "Send request",
+    "submitting": "Sending..."
+  },
+  "validation": {
+    "name": "Please enter your name",
+    "contact": "Please enter Telegram or phone",
+    "message": "Please describe the task"
+  },
+  "feedback": {
+    "success": "Request sent. We'll contact you shortly.",
+    "error": "Could not send the request. Please try again or message us on Telegram.",
+    "telegramNotConfigured": "Telegram is not configured. Set REACT_APP_TELEGRAM_BOT_TOKEN and REACT_APP_TELEGRAM_CHAT_ID in .env",
+    "sendFailed": "Could not send the request"
+  },
+  "quickContact": {
+    "label": "Or reach out directly",
+    "telegram": {
+      "hint": "Fastest way to get in touch"
+    },
+    "email": {
+      "hint": "For detailed inquiries"
+    },
+    "phone": {
+      "label": "Phone",
+      "hint": "Moldova · WhatsApp"
+    }
+  },
+  "services": {
+    "content": "Content",
+    "advertising": "Advertising",
+    "web": "Web development",
+    "fullCycle": "Full cycle",
+    "other": "Other"
+  },
+  "telegram": {
+    "leadTitle": "New lead from the website",
+    "name": "Name",
+    "contact": "Contact",
+    "service": "Service",
+    "message": "Message"
+  }
+}

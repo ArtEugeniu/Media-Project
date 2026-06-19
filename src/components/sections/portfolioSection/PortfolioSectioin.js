@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import './PortfolioSection.scss';
 import ProjectCards from '../../cards/ProjectCards/ProjectCards';
 
@@ -16,6 +17,8 @@ const headingVariants = {
 };
 
 function PortfolioSection() {
+  const { t } = useTranslation('portfolio');
+
   return (
     <section className="portfolio" id="portfolio">
       <div className="container">
@@ -26,12 +29,12 @@ function PortfolioSection() {
           viewport={{ once: true, margin: '-80px' }}
         >
           <motion.div className="portfolio__heading" variants={headingVariants}>
-            <span className="portfolio__badge">НАШИ КЕЙСЫ</span>
+            <span className="portfolio__badge">{t('badge')}</span>
             <h2 className="portfolio__title section-title">
-              Как мы помогаем бизнесу расти
+              {t('title')}
             </h2>
             <p className="portfolio__description">
-              Контент, реклама и веб-разработка для решения реальных бизнес-задач.
+              {t('description')}
             </p>
           </motion.div>
 

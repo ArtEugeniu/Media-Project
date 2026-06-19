@@ -1,11 +1,10 @@
 import { Link } from 'react-scroll';
+import { useTranslation } from 'react-i18next';
 import './Footer.scss';
 import { NAV_ITEMS } from '../../config/navigation';
 import {
-  DEFAULT_LANG,
   FACEBOOK_URL,
   INSTAGRAM_URL,
-  SITE_NAME,
   TELEGRAM_URL,
 } from '../../config/site';
 import { getSectionScrollOffset } from '../../utils/scrollOffset';
@@ -13,6 +12,7 @@ import { getSectionScrollOffset } from '../../utils/scrollOffset';
 const YEAR = new Date().getFullYear();
 
 function Footer() {
+  const { t } = useTranslation(['common', 'nav']);
   const sectionScrollOffset = getSectionScrollOffset();
 
   return (
@@ -26,12 +26,12 @@ function Footer() {
             offset={0}
             duration={800}
           >
-            {SITE_NAME[DEFAULT_LANG]}
+            {t('brandName')}
           </Link>
-          <p className="footer__tagline">Контент, реклама и веб-разработка для бизнеса</p>
+          <p className="footer__tagline">{t('footer.tagline')}</p>
         </div>
 
-        <nav className="footer__nav" aria-label="Навигация по странице">
+        <nav className="footer__nav" aria-label={t('aria.pageNav')}>
           <ul className="footer__nav-list">
             {NAV_ITEMS.map((item) => (
               <li key={item.section}>
@@ -42,7 +42,7 @@ function Footer() {
                   offset={item.section === 'home' ? 0 : sectionScrollOffset}
                   duration={800}
                 >
-                  {item.label[DEFAULT_LANG]}
+                  {t(item.section, { ns: 'nav' })}
                 </Link>
               </li>
             ))}
@@ -99,7 +99,7 @@ function Footer() {
       <div className="footer__bottom">
         <div className="container">
           <p className="footer__copy">
-            © {YEAR} {SITE_NAME[DEFAULT_LANG]}. Все права защищены.
+            © {YEAR} {t('brandName')}. {t('footer.rights')}
           </p>
         </div>
       </div>

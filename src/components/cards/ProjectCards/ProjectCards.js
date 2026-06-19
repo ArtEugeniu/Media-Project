@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
+import { useTranslation } from 'react-i18next';
 import 'swiper/css';
 import './ProjectCards.scss';
 import projectCardData from '../../../assets/data/projectCardData.json';
@@ -106,7 +107,7 @@ function CaseMedia({ item, videoRef }) {
   );
 }
 
-function ProjectCard({ item, activeCardId, onToggleDetails }) {
+function ProjectCard({ item, activeCardId, onToggleDetails, viewCaseLabel, comingSoonOverlay, comingSoonLabel }) {
   const cardRef = useRef(null);
   const videoRef = useRef(null);
   const hasVideo = item.media?.type === 'video';
@@ -265,7 +266,7 @@ function ProjectCard({ item, activeCardId, onToggleDetails }) {
 
         {item.comingSoon && (
           <div className="projectCards__soon-overlay">
-            <span>Скоро появится</span>
+            <span>{comingSoonOverlay}</span>
           </div>
         )}
 
@@ -278,7 +279,7 @@ function ProjectCard({ item, activeCardId, onToggleDetails }) {
             tabIndex={-1}
             aria-hidden="true"
           >
-            Посмотреть кейс
+            {viewCaseLabel}
           </a>
         )}
       </div>
@@ -301,18 +302,18 @@ function ProjectCard({ item, activeCardId, onToggleDetails }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Посмотреть кейс <ExternalIcon />
+              {viewCaseLabel} <ExternalIcon />
             </a>
           )}
 
           {!item.comingSoon && !item.link && (
             <span className="projectCards__btn projectCards__btn--primary">
-              Посмотреть кейс <ExternalIcon />
+              {viewCaseLabel} <ExternalIcon />
             </span>
           )}
 
           {item.comingSoon && (
-            <span className="projectCards__soon-label">Кейс скоро появится</span>
+            <span className="projectCards__soon-label">{comingSoonLabel}</span>
           )}
         </div>
       </div>
@@ -321,9 +322,23 @@ function ProjectCard({ item, activeCardId, onToggleDetails }) {
 }
 
 function ProjectCards() {
+  const { t } = useTranslation('portfolio');
   const swiperRef = useRef(null);
   const [swiperInstance, setSwiperInstance] = useState(null);
   const [activeCardId, setActiveCardId] = useState(null);
+
+  const localizedProjects = useMemo(() => projectCardData.map((item) => {
+    const caseKey = String(item.id);
+    const tags = t(`cases.${caseKey}.tags`, { returnObjects: true });
+
+    return {
+      ...item,
+      title: t(`cases.${caseKey}.title`),
+      description: t(`cases.${caseKey}.description`),
+      type: t(`cases.${caseKey}.type`),
+      tags: Array.isArray(tags) ? tags : [],
+    };
+  }), [t]);
 
   useEffect(() => {
     if (!swiperInstance?.autoplay) {
@@ -364,7 +379,7 @@ function ProjectCards() {
           slidesPerView={1}
           spaceBetween={24}
           speed={650}
-          loop={projectCardData.length > 3}
+          loop={localizedProjects.length > 3}
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
@@ -383,12 +398,15 @@ function ProjectCards() {
             },
           }}
         >
-          {projectCardData.map((item) => (
+          {localizedProjects.map((item) => (
             <SwiperSlide key={item.id} className="projectCards__slide">
               <ProjectCard
                 item={item}
                 activeCardId={activeCardId}
                 onToggleDetails={handleToggleDetails}
+                viewCaseLabel={t('viewCase')}
+                comingSoonOverlay={t('comingSoonOverlay')}
+                comingSoonLabel={t('comingSoonLabel')}
               />
             </SwiperSlide>
           ))}

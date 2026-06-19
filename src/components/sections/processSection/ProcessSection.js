@@ -1,12 +1,11 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import './ProcessSection.scss';
 
-const STEPS = [
+const STEP_CONFIG = [
   {
     number: '01',
-    title: 'Погружаемся в задачу',
-    description:
-      'Изучаем ваш бизнес, цели, аудиторию и текущую ситуацию. Определяем, что именно нужно для роста.',
+    stepKey: '1',
     accent: 'cyan',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -17,9 +16,7 @@ const STEPS = [
   },
   {
     number: '02',
-    title: 'Строим стратегию',
-    description:
-      'Формируем план действий и определяем оптимальное сочетание контента, рекламы и веб-инструментов.',
+    stepKey: '2',
     accent: 'blue',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -31,9 +28,7 @@ const STEPS = [
   },
   {
     number: '03',
-    title: 'Создаём материалы',
-    description:
-      'Снимаем контент, готовим рекламные креативы и разрабатываем сайт или посадочную страницу.',
+    stepKey: '3',
     accent: 'violet',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -44,9 +39,7 @@ const STEPS = [
   },
   {
     number: '04',
-    title: 'Запускаем продвижение',
-    description:
-      'Публикуем контент, запускаем рекламные кампании и настраиваем каналы привлечения клиентов.',
+    stepKey: '4',
     accent: 'cyan',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -57,9 +50,7 @@ const STEPS = [
   },
   {
     number: '05',
-    title: 'Анализируем и улучшаем',
-    description:
-      'Следим за результатами, собираем данные и улучшаем систему для дальнейшего роста.',
+    stepKey: '5',
     accent: 'blue',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -89,6 +80,8 @@ const stepVariants = {
 };
 
 function ProcessSection() {
+  const { t } = useTranslation('process');
+
   return (
     <section className="process" id="process">
       <div className="container">
@@ -99,18 +92,18 @@ function ProcessSection() {
           viewport={{ once: true, margin: '-80px' }}
         >
           <motion.div className="process__heading" variants={headingVariants}>
-            <span className="process__badge">Как мы работаем</span>
+            <span className="process__badge">{t('badge')}</span>
             <h2 className="process__title section-title">
-              От идеи до{' '}
-              <span className="process__title-accent">клиентов</span>
+              {t('title')}{' '}
+              <span className="process__title-accent">{t('titleAccent')}</span>
             </h2>
             <p className="process__description">
-              Берём на себя контент, рекламу и веб-разработку, чтобы вы могли сосредоточиться на бизнесе.
+              {t('description')}
             </p>
           </motion.div>
 
           <div className="process__grid">
-            {STEPS.map((step) => (
+            {STEP_CONFIG.map((step) => (
               <motion.div
                 key={step.number}
                 className={`process__step process__step--${step.accent}`}
@@ -126,14 +119,18 @@ function ProcessSection() {
                   <div className="process__step-icon">{step.icon}</div>
                 </div>
 
-                <h3 className="process__step-title">{step.title}</h3>
-                <p className="process__step-desc">{step.description}</p>
+                <h3 className="process__step-title">
+                  {t(`steps.${step.stepKey}.title`)}
+                </h3>
+                <p className="process__step-desc">
+                  {t(`steps.${step.stepKey}.description`)}
+                </p>
               </motion.div>
             ))}
           </div>
 
           <motion.p className="process__note" variants={headingVariants}>
-            После запуска продолжаем сопровождение проекта и помогаем масштабировать результат.
+            {t('note')}
           </motion.p>
         </motion.div>
       </div>

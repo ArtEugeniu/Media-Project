@@ -1,0 +1,43 @@
+{
+  "badge": "OUR SERVICES",
+  "title": "We combine content, ads, and web development",
+  "description": "One team takes you from idea and creative work to leads and conversions.",
+  "cards": {
+    "content-production": {
+      "label": "CAPTURE ATTENTION",
+      "title": "Content and production",
+      "description": "We create content that showcases your business, builds trust, and helps you stand out from competitors.",
+      "features": [
+        "Reels production",
+        "Video editing",
+        "Social media content",
+        "Creative posts",
+        "Content planning"
+      ]
+    },
+    "performance-marketing": {
+      "label": "DRIVE THE AUDIENCE",
+      "title": "Advertising and promotion",
+      "description": "We set up Meta and Google campaigns to attract the right audience and generate inquiries.",
+      "features": [
+        "Meta Ads",
+        "Google Ads",
+        "Audience setup",
+        "Analytics",
+        "Ad optimization"
+      ]
+    },
+    "web-development": {
+      "label": "TURN INTO CLIENTS",
+      "title": "Web development",
+      "description": "We build websites and landing pages that turn visitors into clients.",
+      "features": [
+        "Landing pages",
+        "Corporate websites",
+        "Online menus",
+        "Responsive development",
+        "Basic SEO optimization"
+      ]
+    }
+  }
+}
