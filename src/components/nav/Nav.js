@@ -1,9 +1,11 @@
 import './Nav.scss';
-import { Link } from 'react-scroll';
 import { useRef, useEffect, useState } from 'react';
 import { NAV_ITEMS } from '../../config/navigation';
 import { DEFAULT_LANG, SITE_NAME } from '../../config/site';
-import { getSectionScrollOffset } from '../../utils/scrollOffset';
+import {
+  MOBILE_MENU_SCROLL_DELAY_MS,
+  scrollToSection,
+} from '../../utils/scrollOffset';
 
 function Nav({ headerHeight, isBurgerOpen, toggleBurger, burgerButton }) {
   const burgerMenu = useRef();
@@ -31,16 +33,20 @@ function Nav({ headerHeight, isBurgerOpen, toggleBurger, burgerButton }) {
     }
 
     const sectionIds = NAV_ITEMS.map((item) => item.section);
-    const visibility = new Map(sectionIds.map((id) => [id, id === 'home']));
+    const visibilityRatios = new Map(sectionIds.map((id) => [id, id === 'home' ? 1 : 0]));
     const observedElements = new WeakSet();
     let observer;
     let reconnectTimer;
 
     const pickActiveSection = () => {
       let current = 'home';
+      let bestRatio = visibilityRatios.get('home') ?? 0;
 
       sectionIds.forEach((id) => {
-        if (visibility.get(id)) {
+        const ratio = visibilityRatios.get(id) ?? 0;
+
+        if (ratio > bestRatio) {
+          bestRatio = ratio;
           current = id;
         }
       });
@@ -62,14 +68,17 @@ function Nav({ headerHeight, isBurgerOpen, toggleBurger, burgerButton }) {
         observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
-              visibility.set(entry.target.id, entry.isIntersecting);
+              visibilityRatios.set(
+                entry.target.id,
+                entry.isIntersecting ? entry.intersectionRatio : 0,
+              );
             });
             pickActiveSection();
           },
           {
             root: null,
-            rootMargin: `-${headerHeight + 80}px 0px -55% 0px`,
-            threshold: 0,
+            rootMargin: `-${headerHeight + 8}px 0px -45% 0px`,
+            threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
           },
         );
       }
@@ -117,23 +126,35 @@ function Nav({ headerHeight, isBurgerOpen, toggleBurger, burgerButton }) {
     };
   }, [headerHeight]);
 
-  const scrollOffset = getSectionScrollOffset(headerHeight);
-
   function scrollToTop(event) {
     event.currentTarget.blur();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const scrollHome = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     if (isBurgerOpen) {
       toggleBurger();
+      window.setTimeout(scrollHome, MOBILE_MENU_SCROLL_DELAY_MS);
+      return;
     }
+
+    scrollHome();
   }
 
-  function handleNavClick(event) {
+  function handleSectionNav(section, event) {
+    event.preventDefault();
     event.currentTarget.blur();
+
+    const runScroll = () => scrollToSection(section);
 
     if (isBurgerOpen) {
       toggleBurger();
+      window.setTimeout(runScroll, MOBILE_MENU_SCROLL_DELAY_MS);
+      return;
     }
+
+    runScroll();
   }
 
   return (
@@ -162,16 +183,13 @@ function Nav({ headerHeight, isBurgerOpen, toggleBurger, burgerButton }) {
                   {getLabel(item)}
                 </button>
               ) : (
-                <Link
-                  to={item.section}
-                  smooth
-                  offset={scrollOffset}
-                  duration={800}
+                <button
+                  type="button"
                   className={getLinkClassName(item.section)}
-                  onClick={handleNavClick}
+                  onClick={(event) => handleSectionNav(item.section, event)}
                 >
                   {getLabel(item)}
-                </Link>
+                </button>
               )}
             </li>
           ))}

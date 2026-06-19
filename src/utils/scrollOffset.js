@@ -42,3 +42,21 @@ export function getSectionScrollOffset(headerHeight) {
 
   return -offset;
 }
+
+/** Delay after closing the mobile menu before scrolling (menu-lock + panel transition). */
+export const MOBILE_MENU_SCROLL_DELAY_MS = 80;
+
+export function scrollToSection(sectionId) {
+  if (typeof document === 'undefined') {
+    return false;
+  }
+
+  const element = document.getElementById(sectionId);
+
+  if (!element) {
+    return false;
+  }
+
+  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  return true;
+}
